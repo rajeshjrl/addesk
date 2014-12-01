@@ -12288,13 +12288,13 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .cnitheme .menu .menu_button img {
-	width: 100%;
+	width: 90%;
 }
 
 .cnitheme .menu .menu_button p {
-	font-size: 12px;
+	font-size: 10px;
 	color: #ffffff;
-	text-align: left;
+	text-align: center;
 }
 
 .cnitheme .signup_link .menu {
