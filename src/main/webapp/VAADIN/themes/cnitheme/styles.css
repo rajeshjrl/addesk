@@ -12282,6 +12282,10 @@ div.v-layout.v-horizontal.v-widget {
 	background: url(layouts/images/active_down_arrow.png) center top no-repeat;
 }
 
+.cnitheme .menu ul li  ~ li {
+	border-left: 2px solid #fbe3cf;
+}
+
 .cnitheme .menu ul li a {
 	font-size: 14px;
 	color: #ffffff;
@@ -12290,11 +12294,11 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .cnitheme .menu ul li :hover {
-	color: #49311c;
+	color: #49311c !important;
 }
 
 .cnitheme .menu ul li :active {
-	color: #49311c;
+	color: #49311c !important;
 }
 
 .cnitheme .menu .menu_button {
@@ -12311,10 +12315,6 @@ div.v-layout.v-horizontal.v-widget {
 	font-size: 9px;
 	color: #ffffff;
 	text-align: center;
-}
-
-.cnitheme .menu ul li ~ li {
-	border-left: 2px solid #fbe3cf;
 }
 
 .cnitheme .menu_active {

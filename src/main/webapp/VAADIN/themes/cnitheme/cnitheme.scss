@@ -127,6 +127,9 @@ header{
 			    height:8px;
 				margin:0 0 0 5px;
 			    background:url(layouts/images/active_down_arrow.png) center top no-repeat;	
+			}			
+			~li { 	
+				border-left: 2px solid $banner_border_left;
 			}
 			a{
 			    font-size:14px;
@@ -135,10 +138,10 @@ header{
 			    text-shadow:0 1px 1px $banner_text_shadow;			    
 			}
 			:hover{
-			    color:$banner_text_selection;
+			    color:$banner_text_selection !important;
 			}
 			:active{
-			    color:$banner_text_selection;
+			    color:$banner_text_selection !important;
 			}
 		}
 	}
@@ -155,9 +158,6 @@ header{
 			text-align:center;
 		}
 	}
-}
-.menu ul li~li { 	
-	border-left: 2px solid $banner_border_left;
 }
 .menu_active{
     color:$banner_text_selection !important;
