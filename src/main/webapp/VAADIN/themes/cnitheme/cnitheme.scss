@@ -32,12 +32,14 @@
 @mixin cnitheme {
   @include valo;
   // Insert your own theme rules here
-  
+    
+/*---------------This is reset library we have to insert at the top of css --------------------*/ 
+ 
 html{color:#000;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0; font-weight:normal;}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0; outline:none;}address,caption,cite,code,dfn,em,th,var{font-weight:normal}li{list-style:none}caption,th{text-align:left}
 h1,h2,h3,h4,h5,h6{font-size:100%;/*font-weight:normal*/}
 q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}input,textarea,select{*font-size:100%}legend{color:#000}
 body{*font-size:small;*font:x-small}select,input,button,textarea{font:99% }table{font-size:inherit;font:100%}pre,code,kbd,samp,tt{font-family:oxygenregular;*font-size:108%;line-height:100%}
-a{ text-decoration:none; }
+a{ text-decoration:none;}
 :active{ outline:0 none;}
 :focus{ outline:0 none;}
 :hover{ outline:0 none;}
@@ -57,6 +59,9 @@ input[type="text"]:focus, input[type="password"]:focus {
 /*-------------------------------style starts here--------------------------------------------*/
 /*---------------------browser text section color code----------------*/
 
+::-ms-selection {
+    background: #d7e5e6 ; /* IE */
+}
 ::-moz-selection {
     background: #d7e5e6 ; /* Firefox */
 }
@@ -77,9 +82,17 @@ body{
     color:#343331;
     background:#fafaf5;
 }
-  /*------Header css starts here------------*/
+/*------Header css starts here------------*/
+
+$banner_lighter_shade: #f4a460 !default;
+$banner_darker_shade: #926239 !default;
+$banner_text_color: #ffffff; //not used not default since it is a hyper link
+$banner_text_shadow: #000000 !default;
+$banner_text_selection: #49311c !default;
+$banner_border_left: #fbe3cf !default;
+
 .page_holder{
-    width:990px;
+    width:95%;
     margin:0 auto;	
 }
 .page_inner{
@@ -89,106 +102,65 @@ body{
 header{
     width:100%;
     display:inline-block;
-    background: -ms-linear-gradient(#f4a460, #926239); /* For IE10 */
-	background: -webkit-linear-gradient(#f4a460, #926239); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#f4a460, #926239); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#f4a460, #926239); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#f4a460, #926239); /* Standard syntax (must be last) */
+    background: -ms-linear-gradient($banner_lighter_shade, $banner_darker_shade); /* For IE10 */
+	background: -webkit-linear-gradient($banner_lighter_shade, $banner_darker_shade); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($banner_lighter_shade, $banner_darker_shade); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($banner_lighter_shade, $banner_darker_shade); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($banner_lighter_shade, $banner_darker_shade); /* Standard syntax (must be last) */
     min-height:54px;
     text-align:left;
-}
-.logo{
-    width:17%;
-    display:inline-block;
-    vertical-align:top;
-    padding:12px 0 0 0;
-}
-.logo a{
-    font-size:25px;
-    color:#fff;
-}
-.nav_otr {
-    padding: 8px 0 0;
-    float:right;
-    width:64%;
-}
-.login{
-    border-left:1px solid #A6A6A6;
-    padding:0 0 5px 20px;
 }
 .menu {
     margin: 10px 0 5px 0;
     text-align:right;
-    .menu_button {
+    ul{
+	    width:auto;
+	    display:inline-block;
+	    li{
+		    float:left;
+		    margin:0 0 0 20px;
+			padding:5px;
+			span.arrow {
+			    display:inline-block;
+			    position:relative;
+			    width:14px;
+			    height:8px;
+				margin:0 0 0 5px;
+			    background:url(layouts/images/active_down_arrow.png) center top no-repeat;	
+			}
+			a{
+			    font-size:14px;
+			    color:$banner_text_color;
+			    transition:all ease 0.8s 0s;
+			    text-shadow:0 1px 1px $banner_text_shadow;			    
+			}
+			:hover{
+			    color:$banner_text_selection;
+			}
+			:active{
+			    color:$banner_text_selection;
+			}
+		}
+	}
+    .menu_button{
         float:left;
 		display:inline-block;
-		margin-left:10px;
 		img {
-			width:90%;
+			width:75%;
 		}  
-		p {
-			font-size:10px;
-			color:#ffffff;
+		p{
+		    margin-left:7px;
+			font-size:9px;
+			color:$banner_text_color;
 			text-align:center;
 		}
 	}
 }
-.signup_link .menu {
-    margin:0;
-}
-.menu ul{
-    width:auto;
-    display:inline-block;
-}
-.menu ul li{
-    float:left;
-    margin:0 0 0 20px;
-	padding: 10px;
-}
 .menu ul li~li { 	
-	border-left: 2px solid #fbe3cf;
-}
-.menu ul li a{
-    font-size:14px;
-    color:#ffffff;
-    transition:all ease 0.8s 0s;
-    text-shadow:0 1px 1px #000000;
-}
-.menu ul li span.arrow {
-    display:inline-block;
-    position:relative;
-    width:14px;
-    height:8px;
-	margin:0 0 0 5px;
-    background:url(layouts/images/active_down_arrow.png) center top no-repeat;	
-}
-.menu ul li a:hover{
-    color:#49311c !important;
-}
-.menu ul li a:active{
-    color:#49311c !important;
+	border-left: 2px solid $banner_border_left;
 }
 .menu_active{
-    color:#49311c !important;
+    color:$banner_text_selection !important;
 }
-.signup_link {
-    float:right;
-}
-/*.menu .menu_button {
-	display:inline;
-	position:absolute;
-	left:13px;
-	top:13px;
-	width:32px;
-	height:32px;
-}
-.menu .menu_button img {
-	width:100%;
-}  
-.menu .menu-button p {
-	font-size: 10px;
-	color:#ffffff;
-	text-align:left;
-}*/
 /*------Header css ends here------------*/
 }

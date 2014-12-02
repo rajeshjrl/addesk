@@ -12208,6 +12208,10 @@ div.v-layout.v-horizontal.v-widget {
 	box-shadow: 0 0 3px #6188da;
 }
 
+.cnitheme ::-ms-selection {
+	background: #d7e5e6;
+}
+
 .cnitheme ::-moz-selection {
 	background: #d7e5e6;
 }
@@ -12232,7 +12236,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .cnitheme .page_holder {
-	width: 990px;
+	width: 95%;
 	margin: 0 auto;
 }
 
@@ -12253,52 +12257,9 @@ div.v-layout.v-horizontal.v-widget {
 	text-align: left;
 }
 
-.cnitheme .logo {
-	width: 17%;
-	display: inline-block;
-	vertical-align: top;
-	padding: 12px 0 0 0;
-}
-
-.cnitheme .logo a {
-	font-size: 25px;
-	color: #fff;
-}
-
-.cnitheme .nav_otr {
-	padding: 8px 0 0;
-	float: right;
-	width: 64%;
-}
-
-.cnitheme .login {
-	border-left: 1px solid #A6A6A6;
-	padding: 0 0 5px 20px;
-}
-
 .cnitheme .menu {
 	margin: 10px 0 5px 0;
 	text-align: right;
-}
-
-.cnitheme .menu .menu_button {
-	float: left;
-	display: inline-block;
-	margin-left: 10px;
-}
-
-.cnitheme .menu .menu_button img {
-	width: 90%;
-}
-
-.cnitheme .menu .menu_button p {
-	font-size: 10px;
-	color: #ffffff;
-	text-align: center;
-}
-
-.cnitheme .signup_link .menu {
-	margin: 0;
 }
 
 .cnitheme .menu ul {
@@ -12309,18 +12270,7 @@ div.v-layout.v-horizontal.v-widget {
 .cnitheme .menu ul li {
 	float: left;
 	margin: 0 0 0 20px;
-	padding: 10px;
-}
-
-.cnitheme .menu ul li ~ li {
-	border-left: 2px solid #fbe3cf;
-}
-
-.cnitheme .menu ul li a {
-	font-size: 14px;
-	color: #ffffff;
-	transition: all ease 0.8s 0s;
-	text-shadow: 0 1px 1px #000000;
+	padding: 5px;
 }
 
 .cnitheme .menu ul li span.arrow {
@@ -12332,18 +12282,41 @@ div.v-layout.v-horizontal.v-widget {
 	background: url(layouts/images/active_down_arrow.png) center top no-repeat;
 }
 
-.cnitheme .menu ul li a:hover {
-	color: #49311c !important;
+.cnitheme .menu ul li a {
+	font-size: 14px;
+	color: #ffffff;
+	transition: all ease 0.8s 0s;
+	text-shadow: 0 1px 1px #000000;
 }
 
-.cnitheme .menu ul li a:active {
-	color: #49311c !important;
+.cnitheme .menu ul li :hover {
+	color: #49311c;
+}
+
+.cnitheme .menu ul li :active {
+	color: #49311c;
+}
+
+.cnitheme .menu .menu_button {
+	float: left;
+	display: inline-block;
+}
+
+.cnitheme .menu .menu_button img {
+	width: 75%;
+}
+
+.cnitheme .menu .menu_button p {
+	margin-left: 7px;
+	font-size: 9px;
+	color: #ffffff;
+	text-align: center;
+}
+
+.cnitheme .menu ul li ~ li {
+	border-left: 2px solid #fbe3cf;
 }
 
 .cnitheme .menu_active {
 	color: #49311c !important;
-}
-
-.cnitheme .signup_link {
-	float: right;
 }
