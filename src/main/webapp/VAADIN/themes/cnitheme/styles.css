@@ -12260,63 +12260,63 @@ div.v-layout.v-horizontal.v-widget {
 .cnitheme .menu {
 	margin: 10px 0 5px 0;
 	text-align: right;
-}
-
-.cnitheme .menu ul {
-	width: auto;
-	display: inline-block;
-}
-
-.cnitheme .menu ul li {
-	float: left;
-	margin: 0 0 0 20px;
-	padding: 5px;
-}
-
-.cnitheme .menu ul li span.arrow {
-	display: inline-block;
-	position: relative;
-	width: 14px;
-	height: 8px;
-	margin: 0 0 0 5px;
-	background: url(layouts/images/active_down_arrow.png) center top no-repeat;
-}
-
-.cnitheme .menu ul li  ~ li {
-	border-left: 2px solid #fbe3cf;
-}
-
-.cnitheme .menu ul li a {
-	font-size: 14px;
 	color: #ffffff;
-	transition: all ease 0.8s 0s;
-	text-shadow: 0 1px 1px #000000;
 }
 
-.cnitheme .menu ul li :hover {
-	color: #49311c !important;
+.cnitheme .menu .right_menu .v-menubar {
+	background: transparent;
+	color: #ffffff;
+	border: none;
+	box-shadow: none;
 }
 
-.cnitheme .menu ul li :active {
-	color: #49311c !important;
+.cnitheme .menu .right_menu .v-menubar  > .v-menubar-menuitem-selected {
+	background-color: #926239;
+	outline-color: #926239;
+	border: none;
+	background-image: none;
+	box-shadow: none;
+}
+
+.cnitheme .menu .right_menu :after {
+	border-color: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
 }
 
 .cnitheme .menu .menu_button {
 	float: left;
 	display: inline-block;
+	background: transparent;
 }
 
-.cnitheme .menu .menu_button img {
-	width: 75%;
-}
-
-.cnitheme .menu .menu_button p {
-	margin-left: 7px;
-	font-size: 9px;
+.cnitheme .menu .menu_button .v-menubar {
+	background: transparent;
 	color: #ffffff;
-	text-align: center;
+	border: none;
+	box-shadow: none;
 }
 
-.cnitheme .menu_active {
-	color: #49311c !important;
+.cnitheme .menu .menu_button .v-menubar  > .v-menubar-menuitem-selected {
+	background-image: none;
+	background-color: #926239;
+	outline-color: #926239;
+	border: none;
+	box-shadow: none;
+}
+
+.cnitheme .menu .menu_button :after {
+	border-color: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.cnitheme .v-menubar-popup {
+	background-color: #926239;
+	color: #ffffff;
+}
+
+.cnitheme .v-menubar-popup .popupContent .v-menubar-submenu :hover {
+	background-image: none;
+	background-color: #f4a460;
 }

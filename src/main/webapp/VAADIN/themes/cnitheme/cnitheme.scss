@@ -110,57 +110,68 @@ header{
     min-height:54px;
     text-align:left;
 }
-.menu {
+.menu{
     margin: 10px 0 5px 0;
     text-align:right;
-    ul{
-	    width:auto;
-	    display:inline-block;
-	    li{
-		    float:left;
-		    margin:0 0 0 20px;
-			padding:5px;
-			span.arrow {
-			    display:inline-block;
-			    position:relative;
-			    width:14px;
-			    height:8px;
-				margin:0 0 0 5px;
-			    background:url(layouts/images/active_down_arrow.png) center top no-repeat;	
-			}			
-			~li { 	
-				border-left: 2px solid $banner_border_left;
+    color:$banner_text_color;
+    .right_menu{
+    	.v-menubar{
+			background:transparent;
+			color:$banner_text_color;
+			border:none;
+			box-shadow:none;
+			> .v-menubar-menuitem-selected{
+		   		background-color:$banner_darker_shade;
+		   		outline-color: $banner_darker_shade;
+		   		border: none;
+				background-image: none;
+				box-shadow: none;
 			}
-			a{
-			    font-size:14px;
-			    color:$banner_text_color;
-			    transition:all ease 0.8s 0s;
-			    text-shadow:0 1px 1px $banner_text_shadow;			    
-			}
-			:hover{
-			    color:$banner_text_selection !important;
-			}
-			:active{
-			    color:$banner_text_selection !important;
-			}
+		}:focus{
+		}:after {
+			border-color: none;
+			-webkit-box-shadow: none;
+			box-shadow: none;
 		}
 	}
     .menu_button{
         float:left;
 		display:inline-block;
-		img {
-			width:75%;
-		}  
-		p{
-		    margin-left:7px;
-			font-size:9px;
+		background:transparent;
+		.v-menubar{
+			background:transparent;
 			color:$banner_text_color;
-			text-align:center;
+			border:none;
+			box-shadow:none;
+			> .v-menubar-menuitem-selected{			
+				background-image: none;
+				background-color:$banner_darker_shade;
+				outline-color: $banner_darker_shade;
+				border: none;
+				box-shadow: none;
+			}
+		}:focus{
+		}:after {
+			border-color: none;
+			-webkit-box-shadow: none;
+			box-shadow: none;
 		}
 	}
 }
-.menu_active{
-    color:$banner_text_selection !important;
+
+.v-menubar-popup{
+	background-color:$banner_darker_shade;
+	color:$banner_text_color;	
+    .popupContent{
+    	.v-menubar-submenu{    	
+			> .v-menubar-menuitem-selected{
+			}:hover{
+				background-image: none;
+				background-color: $banner_lighter_shade;
+			}:before{
+			}
+    	}    
+    }
 }
 /*------Header css ends here------------*/
 }
