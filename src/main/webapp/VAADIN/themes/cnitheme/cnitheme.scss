@@ -90,6 +90,7 @@ $banner_text_color: #ffffff; //not used not default since it is a hyper link
 $banner_text_shadow: #000000 !default;
 $banner_text_selection: #49311c !default;
 $banner_border_left: #fbe3cf !default;
+$page_title_line: #D3D3D3 !default;   
 
 .page_holder{
     width:95%;
@@ -114,26 +115,6 @@ header{
     margin: 10px 0 5px 0;
     text-align:right;
     color:$banner_text_color;
-    .right_menu{
-    	.v-menubar{
-			background:transparent;
-			color:$banner_text_color;
-			border:none;
-			box-shadow:none;
-			> .v-menubar-menuitem-selected{
-		   		background-color:$banner_darker_shade;
-		   		outline-color: $banner_darker_shade;
-		   		border: none;
-				background-image: none;
-				box-shadow: none;
-			}
-		}:focus{
-		}:after {
-			border-color: none;
-			-webkit-box-shadow: none;
-			box-shadow: none;
-		}
-	}
     .menu_button{
         float:left;
 		display:inline-block;
@@ -148,6 +129,30 @@ header{
 				background-color:$banner_darker_shade;
 				outline-color: $banner_darker_shade;
 				border: none;
+				box-shadow: none;
+			}
+		}:focus{
+		}:after {
+			border-color: none;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+		}
+	}
+	.menu-logo{
+		display:inline;
+		float:left;
+	}
+	.right_menu{
+    	.v-menubar{
+			background:transparent;
+			color:$banner_text_color;
+			border:none;
+			box-shadow:none;
+			> .v-menubar-menuitem-selected{
+		   		background-color:$banner_darker_shade;
+		   		outline-color: $banner_darker_shade;
+		   		border: none;
+				background-image: none;
 				box-shadow: none;
 			}
 		}:focus{
@@ -173,5 +178,9 @@ header{
     	}    
     }
 }
+
+hr { 
+    border-top: 1px solid $page_title_line;
+} 
 /*------Header css ends here------------*/
 }
