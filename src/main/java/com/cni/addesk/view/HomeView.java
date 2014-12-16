@@ -91,7 +91,7 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
         homeHorizontalLayout.addComponent(companyLogoImage);
         homeHorizontalLayout.setComponentAlignment(companyLogoImage, Alignment.MIDDLE_LEFT);
         
-        Label portalHomeLabel = new Label("<b><font size=\"7\">Advertiser Portal</font></b>", ContentMode.HTML);
+        Label portalHomeLabel = new Label("<b><font size='7'>Advertiser Portal</font></b>", ContentMode.HTML);
         homeHorizontalLayout.addComponent(portalHomeLabel);
         homeHorizontalLayout.setComponentAlignment(portalHomeLabel, Alignment.MIDDLE_LEFT);
         
@@ -101,7 +101,7 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
         
         rootVerticalLayout.addComponent(homeTitleLineLabel);
         
-        Label signInLabel = new Label("<b><font size=\"5\">Sign In</font></b>", ContentMode.HTML);
+        Label signInLabel = new Label("<b><font size='5'>Sign In</font></b>", ContentMode.HTML);
         
         // Create the user input field
         user = new TextField("Login Name");

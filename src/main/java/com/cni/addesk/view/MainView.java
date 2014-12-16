@@ -77,7 +77,7 @@ public class MainView extends CustomComponent implements View{
 		portalHomeHorizontalLayout.setHeight("15%");
 		portalHomeHorizontalLayout.setMargin(new MarginInfo(false, true, false, true));
 		
-		Label portalHomeLabel = new Label("<b><font size=\"7\">Portal Home</font></b>", ContentMode.HTML);
+		Label portalHomeLabel = new Label("<b><font size='7'>Portal Home</font></b>", ContentMode.HTML);
 		portalHomeHorizontalLayout.addComponent(portalHomeLabel);
 		portalHomeHorizontalLayout.setComponentAlignment(portalHomeLabel, Alignment.MIDDLE_LEFT);
 		
@@ -133,7 +133,7 @@ public class MainView extends CustomComponent implements View{
 		
 		rootVerticalLayout.addComponent(contactLineLabel);
 		
-		Label portalActivityLabel = new Label("<b><font size=\"5\">Your Portal Activity</font></b>", ContentMode.HTML);
+		Label portalActivityLabel = new Label("<b><font size='5'>Your Portal Activity</font></b>", ContentMode.HTML);
 			
 		AbstractOrderedLayout activityVerticalLayout = new VerticalLayout();
 		activityVerticalLayout.setSizeFull();
