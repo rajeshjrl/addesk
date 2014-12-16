@@ -145,7 +145,7 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
         
         fields.addComponent(submitHorizontalLayout);
         
-        ClickableLabel infrequentUsersLabel = new ClickableLabel("<a href='#'><b><font size=\"4\" color=\"blue\">OR, submit creative without registering...</font></b><br/><font color=\"blue\">For infrequent users</font></a>");
+        ClickableLabel infrequentUsersLabel = new ClickableLabel("<a href='#'><b><font size='4'>OR, submit creative without registering...</font></b><br/>For infrequent users</a>");
         
         infrequentUsersLabel.addLayoutClickListener(new LayoutClickListener() {            
             @Override
