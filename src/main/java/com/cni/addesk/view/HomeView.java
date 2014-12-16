@@ -1,20 +1,16 @@
 package com.cni.addesk.view;
 
-import org.vaadin.activelink.ActiveLink;
 
-import com.cni.addesk.custom.ClickableLabel;
-import com.vaadin.event.LayoutEvents.LayoutClickEvent;
-import com.vaadin.event.LayoutEvents.LayoutClickListener;
+import com.cni.addesk.form.CNILoginForm;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ThemeResource;
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Embedded;
@@ -22,11 +18,9 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.BaseTheme;
 
 public class HomeView extends CustomComponent implements View, Button.ClickListener {
 	
@@ -34,8 +28,8 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
 	private final TextField user;
     private final PasswordField password;
     private final Button loginButton;
-    private final Button cancelButton;
 	private final AbstractOrderedLayout rootVerticalLayout;
+	private final CNILoginForm cniLoginForm;
 	
 	private MenuBar.Command menuCommand = new MenuBar.Command() {
 	    public void menuSelected(MenuItem selectedItem) {
@@ -57,6 +51,7 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
 	
 	public HomeView() {
 	    setSizeFull();
+	    cniLoginForm = new CNILoginForm();
 	    rootVerticalLayout = new VerticalLayout();
 		setCompositionRoot(rootVerticalLayout);
 		CustomLayout headerTemplate = new CustomLayout("home_header");
@@ -101,8 +96,6 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
         
         rootVerticalLayout.addComponent(homeTitleLineLabel);
         
-        Label signInLabel = new Label("<b><font size='5'>Sign In</font></b>", ContentMode.HTML);
-        
         // Create the user input field
         user = new TextField("Login Name");
         user.setWidth("350px");
@@ -115,52 +108,12 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
         // Create login button
         loginButton = new Button("Login", this);
         
-        cancelButton = new Button("Cancel");
-
-        // Add both to a panel
-        VerticalLayout fields = new VerticalLayout(signInLabel, user, password);
-        fields.setSpacing(true);
-        fields.setMargin(new MarginInfo(true, true, true, false));
-        fields.setSizeUndefined();
-        
-        AbstractOrderedLayout rememberMeHorizontalLayout = new HorizontalLayout();
-        rememberMeHorizontalLayout.setSizeFull();
-        CheckBox rememberMeCheckBox = new CheckBox("Remember Me");
-        rememberMeHorizontalLayout.addComponent(rememberMeCheckBox);
-        //rememberMeHorizontalLayout.setComponentAlignment(rememberMeCheckBox, Alignment.MIDDLE_RIGHT);
-        
-        //Button forgotPasswordLink = new Button("Forgot your password?");
-        //forgotPasswordLink.setStyleName(BaseTheme.BUTTON_LINK);
-        ActiveLink forgotPasswordLink = new ActiveLink("Forgot your password?", null);
-        rememberMeHorizontalLayout.addComponent(forgotPasswordLink);
-        rememberMeHorizontalLayout.setComponentAlignment(forgotPasswordLink, Alignment.TOP_LEFT);
-        fields.addComponent(rememberMeHorizontalLayout);
-        fields.setComponentAlignment(rememberMeHorizontalLayout, Alignment.TOP_RIGHT);
-        
-        AbstractOrderedLayout submitHorizontalLayout = new HorizontalLayout();
-        submitHorizontalLayout.setSizeFull();
-        submitHorizontalLayout.setMargin(new MarginInfo(true, false, true, false));
-        submitHorizontalLayout.addComponent(loginButton);
-        submitHorizontalLayout.addComponent(cancelButton);
-        
-        fields.addComponent(submitHorizontalLayout);
-        
-        ClickableLabel infrequentUsersLabel = new ClickableLabel("<a href='#'><b><font size='4'>OR, submit creative without registering...</font></b><br/>For infrequent users</a>");
-        
-        infrequentUsersLabel.addLayoutClickListener(new LayoutClickListener() {            
-            @Override
-             public void layoutClick(LayoutClickEvent event) {
-                      
-                      //Notification.show("Hi!");        
-              }
-        });   
-        
-        fields.addComponent(infrequentUsersLabel);
+        Component fieldsVerticalLayout = cniLoginForm.createContent(user, password, loginButton);
         
         // The view root layout
-        VerticalLayout viewLayout = new VerticalLayout(fields);
+        VerticalLayout viewLayout = new VerticalLayout(fieldsVerticalLayout);
         viewLayout.setSizeFull();
-        viewLayout.setComponentAlignment(fields, Alignment.MIDDLE_CENTER);
+        viewLayout.setComponentAlignment(fieldsVerticalLayout, Alignment.MIDDLE_CENTER);
         
         rootVerticalLayout.addComponent(viewLayout);
 	}
@@ -173,16 +126,14 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
 	
 	@Override
     public void buttonClick(ClickEvent event) {
-
+		
         String username = user.getValue();
-        String password = this.password.getValue();
-
+        String password = this.password.getValue();        
         //
         // Validate username and password with database here. For examples sake
         // I use a dummy username and password.
         //
-        boolean isValid = username.equals("test@test.com")
-                && password.equals("passw0rd");
+        boolean isValid = username.equals("test@test.com") && password.equals("passw0rd");
 
         if (isValid) {
 
@@ -190,7 +141,7 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
             getSession().setAttribute("user", username);
 
             // Navigate to main view
-            getUI().getNavigator().navigateTo(MainView.NAME);//
+            getUI().getNavigator().navigateTo(MainView.NAME);
 
         } else {
 

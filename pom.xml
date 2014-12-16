@@ -95,6 +95,11 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+		   <groupId>org.vaadin.addons</groupId>
+		   <artifactId>loginform</artifactId>
+		   <version>0.4</version>
+		</dependency>        
 		<dependency>
 		   <groupId>org.vaadin.addons</groupId>
 		   <artifactId>activelink</artifactId>
