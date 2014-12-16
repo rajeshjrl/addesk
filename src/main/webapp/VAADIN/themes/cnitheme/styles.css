@@ -12329,3 +12329,11 @@ div.v-layout.v-horizontal.v-widget {
 .cnitheme hr {
 	border-top: 1px solid #D3D3D3;
 }
+
+.cnitheme .v-link {
+	cursor: pointer;
+	color: #197DE1;
+	text-decoration: none;
+	font-weight: inherit;
+	transition: color 140ms ease 0s;
+}

@@ -182,5 +182,13 @@ header{
 hr { 
     border-top: 1px solid $page_title_line;
 } 
+
+.v-link {
+    cursor: pointer;
+    color: #197DE1;
+    text-decoration: none;
+    font-weight: inherit;
+    transition: color 140ms ease 0s;
+}
 /*------Header css ends here------------*/
 }

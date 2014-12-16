@@ -1,24 +1,45 @@
 package com.cni.addesk.view;
 
-import com.ejt.vaadin.loginform.DefaultVerticalLoginForm;
+import org.vaadin.activelink.ActiveLink;
+
+import com.cni.addesk.custom.ClickableLabel;
+import com.vaadin.event.LayoutEvents.LayoutClickEvent;
+import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.ThemeResource;
+import com.vaadin.shared.ui.MarginInfo;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.CustomLayout;
+import com.vaadin.ui.Embedded;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.BaseTheme;
 
-public class HomeView extends CustomComponent implements View{
+public class HomeView extends CustomComponent implements View, Button.ClickListener {
 	
 	public static final String NAME = "home";
+	private final TextField user;
+    private final PasswordField password;
+    private final Button loginButton;
+    private final Button cancelButton;
 	private final AbstractOrderedLayout rootVerticalLayout;
 	
 	private MenuBar.Command menuCommand = new MenuBar.Command() {
 	    public void menuSelected(MenuItem selectedItem) {
-	    	if("Login".equals(selectedItem.getText())){	    		
+	    	/*if("Login".equals(selectedItem.getText())){	    		
 	    		AbstractOrderedLayout loginVerticalLayout = new VerticalLayout();
 	    		loginVerticalLayout.setSpacing(true);
 	    		loginVerticalLayout.setWidth("250px");
@@ -30,7 +51,7 @@ public class HomeView extends CustomComponent implements View{
     	        	rootVerticalLayout.addComponent(loginVerticalLayout);
     	        }	    		
 	    		rootVerticalLayout.setComponentAlignment(loginVerticalLayout, Alignment.TOP_RIGHT);
-	    	}
+	    	}*/
 	    }  
 	};
 	
@@ -38,15 +59,110 @@ public class HomeView extends CustomComponent implements View{
 	    setSizeFull();
 	    rootVerticalLayout = new VerticalLayout();
 		setCompositionRoot(rootVerticalLayout);
-		CustomLayout headerTemplate = new CustomLayout("header");
+		CustomLayout headerTemplate = new CustomLayout("home_header");
+		MenuBar menubar = new MenuBar();
+		menubar.setEnabled(false);
+		MenuItem menuItem = menubar.addItem("", new ThemeResource("layouts/images/menu_mobile.png"), null);
+		menuItem.addItem("Home", null, menuCommand);
+		menuItem.addItem("Reports", null, menuCommand);
+		menuItem.addItem("History", null, menuCommand);
+		menuItem.addItem("Help & Information", null, menuCommand);
+		menuItem.addItem("Sign Out", null, menuCommand);
 				
 		MenuBar rightMenu = new MenuBar();
-		MenuItem homeMenuItem = rightMenu.addItem("Home", null, menuCommand);        
+		MenuItem homeMenuItem = rightMenu.addItem("Home", null, menuCommand);
+		homeMenuItem.setEnabled(false);
 		MenuItem helpMenuItem = rightMenu.addItem("Help & Information", null, menuCommand);
-		MenuItem signInItem = rightMenu.addItem("Login", null, menuCommand);
+		MenuItem registerItem = rightMenu.addItem("Register", null, menuCommand);
+		
+		headerTemplate.addComponent(menubar, "menubar");
 		headerTemplate.addComponent(rightMenu, "rightMenu");
 		
 		rootVerticalLayout.addComponent(headerTemplate);
+		
+		AbstractOrderedLayout homeHorizontalLayout = new HorizontalLayout();
+		homeHorizontalLayout.setSpacing(true);
+		homeHorizontalLayout.setSizeUndefined();
+		homeHorizontalLayout.setWidth("75%");
+		//homeHorizontalLayout.setHeight("20%");
+		homeHorizontalLayout.setMargin(true);
+		
+		Embedded companyLogoImage = new Embedded(null, new ThemeResource("layouts/images/company-logo_original.jpg"));
+        homeHorizontalLayout.addComponent(companyLogoImage);
+        homeHorizontalLayout.setComponentAlignment(companyLogoImage, Alignment.MIDDLE_LEFT);
+        
+        Label portalHomeLabel = new Label("<b><font size=\"7\">Advertiser Portal</font></b>", ContentMode.HTML);
+        homeHorizontalLayout.addComponent(portalHomeLabel);
+        homeHorizontalLayout.setComponentAlignment(portalHomeLabel, Alignment.MIDDLE_LEFT);
+        
+        rootVerticalLayout.addComponent(homeHorizontalLayout);
+        
+        Label  homeTitleLineLabel  = new Label("<hr/>", ContentMode.HTML);
+        
+        rootVerticalLayout.addComponent(homeTitleLineLabel);
+        
+        Label signInLabel = new Label("<b><font size=\"5\">Sign In</font></b>", ContentMode.HTML);
+        
+        // Create the user input field
+        user = new TextField("Login Name");
+        user.setWidth("350px");
+        //user.setInputPrompt("Your Login Name");
+
+        // Create the password input field
+        password = new PasswordField("Password");
+        password.setWidth("350px");
+
+        // Create login button
+        loginButton = new Button("Login", this);
+        
+        cancelButton = new Button("Cancel");
+
+        // Add both to a panel
+        VerticalLayout fields = new VerticalLayout(signInLabel, user, password);
+        fields.setSpacing(true);
+        fields.setMargin(new MarginInfo(true, true, true, false));
+        fields.setSizeUndefined();
+        
+        AbstractOrderedLayout rememberMeHorizontalLayout = new HorizontalLayout();
+        rememberMeHorizontalLayout.setSizeFull();
+        CheckBox rememberMeCheckBox = new CheckBox("Remember Me");
+        rememberMeHorizontalLayout.addComponent(rememberMeCheckBox);
+        //rememberMeHorizontalLayout.setComponentAlignment(rememberMeCheckBox, Alignment.MIDDLE_RIGHT);
+        
+        //Button forgotPasswordLink = new Button("Forgot your password?");
+        //forgotPasswordLink.setStyleName(BaseTheme.BUTTON_LINK);
+        ActiveLink forgotPasswordLink = new ActiveLink("Forgot your password?", null);
+        rememberMeHorizontalLayout.addComponent(forgotPasswordLink);
+        rememberMeHorizontalLayout.setComponentAlignment(forgotPasswordLink, Alignment.TOP_LEFT);
+        fields.addComponent(rememberMeHorizontalLayout);
+        fields.setComponentAlignment(rememberMeHorizontalLayout, Alignment.TOP_RIGHT);
+        
+        AbstractOrderedLayout submitHorizontalLayout = new HorizontalLayout();
+        submitHorizontalLayout.setSizeFull();
+        submitHorizontalLayout.setMargin(new MarginInfo(true, false, true, false));
+        submitHorizontalLayout.addComponent(loginButton);
+        submitHorizontalLayout.addComponent(cancelButton);
+        
+        fields.addComponent(submitHorizontalLayout);
+        
+        ClickableLabel infrequentUsersLabel = new ClickableLabel("<a href='#'><b><font size=\"4\" color=\"blue\">OR, submit creative without registering...</font></b><br/><font color=\"blue\">For infrequent users</font></a>");
+        
+        infrequentUsersLabel.addLayoutClickListener(new LayoutClickListener() {            
+            @Override
+             public void layoutClick(LayoutClickEvent event) {
+                      
+                      //Notification.show("Hi!");        
+              }
+        });   
+        
+        fields.addComponent(infrequentUsersLabel);
+        
+        // The view root layout
+        VerticalLayout viewLayout = new VerticalLayout(fields);
+        viewLayout.setSizeFull();
+        viewLayout.setComponentAlignment(fields, Alignment.MIDDLE_CENTER);
+        
+        rootVerticalLayout.addComponent(viewLayout);
 	}
 
 	@Override
@@ -55,22 +171,33 @@ public class HomeView extends CustomComponent implements View{
 		
 	}
 	
-	private class LoginForm extends DefaultVerticalLoginForm {
+	@Override
+    public void buttonClick(ClickEvent event) {
 
-        @Override
-        protected void login(String userName, String password) {
-            //
-            // Validate username and password with database here. For examples sake I use a dummy username and password.
-            //
-            boolean isValid = userName.equals("test@test.com") && password.equals("passw0rd");
+        String username = user.getValue();
+        String password = this.password.getValue();
 
-            if (isValid) {
-                // Store the current user in the service session
-                getSession().setAttribute("user", userName);
-                // Navigate to main view
-                getUI().getNavigator().navigateTo(MainView.NAME);
+        //
+        // Validate username and password with database here. For examples sake
+        // I use a dummy username and password.
+        //
+        boolean isValid = username.equals("test@test.com")
+                && password.equals("passw0rd");
 
-            } 
+        if (isValid) {
+
+            // Store the current user in the service session
+            getSession().setAttribute("user", username);
+
+            // Navigate to main view
+            getUI().getNavigator().navigateTo(MainView.NAME);//
+
+        } else {
+
+            // Wrong password clear the password field and refocuses it
+            this.password.setValue(null);
+            this.password.focus();
+
         }
     }
 
