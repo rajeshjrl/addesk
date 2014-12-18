@@ -37,7 +37,7 @@ public class MainView extends CustomComponent implements View{
 	    	if("Sign Out".equals(selectedItem.getText())){
 	    		
 	    		// "Logout" the user
-	            getSession().setAttribute("username", null);
+	            getSession().setAttribute("user", null);
 
 	            // Refresh this view, should redirect to login view
 	            getUI().getNavigator().navigateTo(NAME);
