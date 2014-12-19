@@ -179,6 +179,8 @@ header{
     }
 }
 
+/*------Header css ends here------------*/
+
 hr { 
     border-top: 1px solid $page_title_line;
 } 
@@ -190,5 +192,23 @@ hr {
     font-weight: inherit;
     transition: color 140ms ease 0s;
 }
-/*------Header css ends here------------*/
+
+.home_label {
+	font-size: 45px;
+	font-weight: bold;
+}
+
+.sign_in_label {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.infrequent_users_label {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+em {
+ 	font-weight: bold;
+}
 }

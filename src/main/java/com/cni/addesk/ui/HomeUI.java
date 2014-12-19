@@ -1,5 +1,7 @@
 package com.cni.addesk.ui;
 
+import java.util.Locale;
+
 import javax.servlet.annotation.WebServlet;
 
 import com.cni.addesk.view.HomeView;
@@ -27,7 +29,12 @@ public class HomeUI extends UI
     }
 
     @Override
-    protected void init(VaadinRequest request) {    
+    protected void init(VaadinRequest request) { 
+    	
+    	/*Locale locale = request.getLocale();
+    	
+    	getSession().setAttribute("locale", locale);*/
+    	
     	// Define a common menu command for all the menu items.
     	//
         // Create a new instance of the navigator. The navigator will attach

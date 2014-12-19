@@ -8,13 +8,17 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.vaadin.activelink.ActiveLink;
+import org.vaadin.activelink.ActiveLink.LinkActivatedEvent;
+import org.vaadin.activelink.ActiveLink.LinkActivatedListener;
 
 import com.cni.addesk.custom.ClickableLabel;
 import com.cni.addesk.form.CNILoginForm;
+import com.cni.addesk.util.Messages;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.ExternalResource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -31,13 +35,14 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 public class HomeView extends CustomComponent implements View, Button.ClickListener {
 	
-	public static final String NAME = "home";
+	public static final String NAME = Messages.getString("HomeView.homeViewName"); 
 	private final TextField username;
     private final PasswordField password;
     private final CheckBox rememberMeCheckBox;
@@ -45,6 +50,7 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
 	private final Button cancelButton;
 	private final AbstractOrderedLayout rootVerticalLayout;
 	private final Subject currentUser = SecurityUtils.getSubject();
+	private UsernamePasswordToken token;
 	
 	private MenuBar.Command menuCommand = new MenuBar.Command() {
 	    public void menuSelected(MenuItem selectedItem) {
@@ -71,63 +77,63 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
 	    setSizeFull();
 	    rootVerticalLayout = new VerticalLayout();
 		setCompositionRoot(rootVerticalLayout);
-		CustomLayout headerTemplate = new CustomLayout("home_header");
+		CustomLayout headerTemplate = new CustomLayout(Messages.getString("HomeView.headerTemplate")); 
 		MenuBar menubar = new MenuBar();
-		MenuItem menuItem = menubar.addItem("", new ThemeResource("layouts/images/menu_mobile.png"), null);
-		MenuItem homeMenuItem = menuItem.addItem("Home", null, menuCommand);
+		MenuItem menuItem = menubar.addItem(Messages.getString("HomeView.menuItemCaption"), new ThemeResource(Messages.getString("HomeView.menuImage")), null); 
+		MenuItem homeMenuItem = menuItem.addItem(Messages.getString("HomeView.homeMenuItem"), null, menuCommand);
 		homeMenuItem.setEnabled(false);
-		MenuItem reportsMenuItem = menuItem.addItem("Reports", null, menuCommand);
+		MenuItem reportsMenuItem = menuItem.addItem(Messages.getString("HomeView.reportsMenuItem"), null, menuCommand); 
 		reportsMenuItem.setEnabled(false);
-		MenuItem historyMenuItem = menuItem.addItem("History", null, menuCommand);
+		MenuItem historyMenuItem = menuItem.addItem(Messages.getString("HomeView.historyMenuItem"), null, menuCommand); 
 		historyMenuItem.setEnabled(false);
-		MenuItem helpInfoMenuItem = menuItem.addItem("Help & Information", null, menuCommand);
+		MenuItem helpInfoMenuItem = menuItem.addItem(Messages.getString("HomeView.helpInfoMenuItem"), null, menuCommand); 
 		helpInfoMenuItem.setEnabled(false);
-		MenuItem signOutMenuItem = menuItem.addItem("Sign Out", null, menuCommand);
+		MenuItem signOutMenuItem = menuItem.addItem(Messages.getString("HomeView.signOutMenuItem"), null, menuCommand);
 		signOutMenuItem.setEnabled(false);
 				
 		MenuBar rightMenu = new MenuBar();
-		MenuItem helpMenuItem = rightMenu.addItem("Help & Information", null, menuCommand);
-		MenuItem registerItem = rightMenu.addItem("Register", null, menuCommand);
+		MenuItem helpMenuItem = rightMenu.addItem(Messages.getString("HomeView.helpMenuItem"), null, menuCommand);
+		MenuItem registerItem = rightMenu.addItem(Messages.getString("HomeView.registerItem"), null, menuCommand); 
 		
-		headerTemplate.addComponent(menubar, "menubar");
-		headerTemplate.addComponent(rightMenu, "rightMenu");
+		headerTemplate.addComponent(menubar, Messages.getString("HomeView.menubar")); 
+		headerTemplate.addComponent(rightMenu, Messages.getString("HomeView.rightMenu")); 
 		
 		rootVerticalLayout.addComponent(headerTemplate);
 		
 		AbstractOrderedLayout homeHorizontalLayout = new HorizontalLayout();
 		homeHorizontalLayout.setSpacing(true);
 		homeHorizontalLayout.setSizeUndefined();
-		homeHorizontalLayout.setWidth("75%");
+		homeHorizontalLayout.setWidth(Messages.getString("HomeView.homeHorizontalLayoutWidth")); 
 		homeHorizontalLayout.setMargin(true);
 		
-		Embedded companyLogoImage = new Embedded(null, new ThemeResource("layouts/images/company-logo_original.jpg"));
+		Embedded companyLogoImage = new Embedded(null, new ThemeResource(Messages.getString("HomeView.companyLogoImage"))); 
         homeHorizontalLayout.addComponent(companyLogoImage);
         homeHorizontalLayout.setComponentAlignment(companyLogoImage, Alignment.MIDDLE_LEFT);
         
-        Label portalHomeLabel = new Label("<b><font size='7'>Advertiser Portal</font></b>", ContentMode.HTML);
+        Label portalHomeLabel = new Label(Messages.getString("HomeView.portalHomeLabel"), ContentMode.HTML); 
         homeHorizontalLayout.addComponent(portalHomeLabel);
         homeHorizontalLayout.setComponentAlignment(portalHomeLabel, Alignment.MIDDLE_LEFT);
         
         rootVerticalLayout.addComponent(homeHorizontalLayout);
         
-        Label  homeTitleLineLabel  = new Label("<hr/>", ContentMode.HTML);
+        Label  homeTitleLineLabel  = new Label(Messages.getString("HomeView.homeTitleLineLabel"), ContentMode.HTML); 
         
         rootVerticalLayout.addComponent(homeTitleLineLabel);
         
         // Create the user input field
-        username = new TextField("Login Name");
-        username.setWidth("350px");
+        username = new TextField(Messages.getString("HomeView.usernameFieldText")); 
+        username.setWidth(Messages.getString("HomeView.usernameFieldWidth")); 
         //user.setInputPrompt("Your Login Name");
 
         // Create the password input field
-        password = new PasswordField("Password");
-        password.setWidth("350px");
+        password = new PasswordField(Messages.getString("HomeView.passwordFieldText")); 
+        password.setWidth(Messages.getString("HomeView.passwordFieldWidth")); 
 
         // Create login button
-        loginButton = new Button("Login", this);
+        loginButton = new Button(Messages.getString("HomeView.loginButtonText"), this); 
         
-        Label signInLabel = new Label("<b><font size='5'>Sign In</font></b>", ContentMode.HTML);        
-        cancelButton = new Button("Cancel");
+        Label signInLabel = new Label(Messages.getString("HomeView.signInLabel"), ContentMode.HTML);         
+        cancelButton = new Button(Messages.getString("HomeView.cancelButtonText")); 
 		// Add both to a panel
         VerticalLayout fields = new VerticalLayout(signInLabel, username, password);
         fields.setSpacing(true);
@@ -136,10 +142,15 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
         
         AbstractOrderedLayout rememberMeHorizontalLayout = new HorizontalLayout();
         rememberMeHorizontalLayout.setSizeFull();
-        rememberMeCheckBox = new CheckBox("Remember Me");
+        rememberMeCheckBox = new CheckBox(Messages.getString("HomeView.rememberMeCheckBoxText")); 
         rememberMeCheckBox.setImmediate(true);
         rememberMeHorizontalLayout.addComponent(rememberMeCheckBox);
-        ActiveLink forgotPasswordLink = new ActiveLink("Forgot your password?", null);
+        ActiveLink forgotPasswordLink = new ActiveLink(Messages.getString("HomeView.forgotPasswordLinkText"), new ExternalResource(Messages.getString("HomeView.forgotPasswordLink"))); 
+        forgotPasswordLink.addListener(new LinkActivatedListener() {           
+            public void linkActivated(LinkActivatedEvent event) {                
+                        //event.isLinkOpened()
+            }
+        });
         rememberMeHorizontalLayout.addComponent(forgotPasswordLink);
         rememberMeHorizontalLayout.setComponentAlignment(forgotPasswordLink, Alignment.TOP_LEFT);
         fields.addComponent(rememberMeHorizontalLayout);
@@ -153,13 +164,17 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
         
         fields.addComponent(submitHorizontalLayout);
         
-        ClickableLabel infrequentUsersLabel = new ClickableLabel("<a href='#'><b><font size='4'>OR, submit creative without registering...</font></b><br/>For infrequent users</a>");
+        ClickableLabel infrequentUsersLabel = new ClickableLabel(Messages.getString("HomeView.infrequentUsersLabel")); 
         
         infrequentUsersLabel.addLayoutClickListener(new LayoutClickListener() {            
             @Override
              public void layoutClick(LayoutClickEvent event) {
-                      
-                      //Notification.show("Hi!");        
+            	token = new UsernamePasswordToken(Messages.getString("HomeView.guestUser"), Messages.getString("HomeView.guestUser"));  
+            	currentUser.login(token);
+            	// Store the current user in the service session
+                getSession().setAttribute(Messages.getString("HomeView.sessionUser"), Messages.getString("HomeView.guestUser")); 
+                // Navigate to main view
+                getUI().getNavigator().navigateTo(MainView.NAME);
               }
         });   
         
@@ -181,7 +196,7 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
 	
 	@Override
     public void buttonClick(ClickEvent event) {
-		UsernamePasswordToken token = new UsernamePasswordToken(username.getValue(), password.getValue());        
+		token = new UsernamePasswordToken(username.getValue(), password.getValue());        
 
 		try {
 			if(rememberMeCheckBox.getValue()){
@@ -189,14 +204,16 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
 			}
 			currentUser.login(token);
             // Store the current user in the service session
-            getSession().setAttribute("user", username.getValue());
+            getSession().setAttribute(Messages.getString("HomeView.sessionUser"), username.getValue()); 
+            
+            //Logger.getAnonymousLogger().log(Level.INFO, getSession().getAttribute("locale").toString());
             // Navigate to main view
             getUI().getNavigator().navigateTo(MainView.NAME);
 
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.INFO, e.getMessage());
-			username.setValue("");
-			password.setValue("");
+			username.setValue(Messages.getString("HomeView.empty")); 
+			password.setValue(Messages.getString("HomeView.empty")); 
 		}
     }
 

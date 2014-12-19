@@ -3,9 +3,20 @@ package com.cni.addesk.view;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.vaadin.activelink.ActiveLink;
+import org.vaadin.activelink.ActiveLink.LinkActivatedEvent;
+import org.vaadin.activelink.ActiveLink.LinkActivatedListener;
+
+import com.cni.addesk.custom.ClickableLabel;
+import com.cni.addesk.util.Messages;
+import com.vaadin.event.LayoutEvents.LayoutClickEvent;
+import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.ExternalResource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -29,15 +40,15 @@ import com.vaadin.ui.themes.BaseTheme;
 
 public class MainView extends CustomComponent implements View{
 	
-	public static final String NAME = "";
+	public static final String NAME = Messages.getString("MainView.mainViewName"); 
 	private final AbstractOrderedLayout rootVerticalLayout;
 	
 	private MenuBar.Command menuCommand = new MenuBar.Command() {
 	    public void menuSelected(MenuItem selectedItem) {
-	    	if("Sign Out".equals(selectedItem.getText())){
+	    	if(7 == selectedItem.getId()){
 	    		
 	    		// "Logout" the user
-	            getSession().setAttribute("user", null);
+	            getSession().setAttribute(Messages.getString("MainView.sessionUser"), null); 
 
 	            // Refresh this view, should redirect to login view
 	            getUI().getNavigator().navigateTo(NAME);
@@ -51,124 +62,83 @@ public class MainView extends CustomComponent implements View{
 	    rootVerticalLayout = new VerticalLayout();
 	    //rootVerticalLayout.setMargin(new MarginInfo(false, true, false, true));
 		setCompositionRoot(rootVerticalLayout);
-		CustomLayout headerTemplate = new CustomLayout("header");
+		CustomLayout headerTemplate = new CustomLayout(Messages.getString("MainView.headerTemplate")); 
 		MenuBar menubar = new MenuBar();
-		MenuItem menuItem = menubar.addItem("", new ThemeResource("layouts/images/menu_mobile.png"), null);
-		menuItem.addItem("Home", null, menuCommand);
-		menuItem.addItem("Reports", null, menuCommand);
-		menuItem.addItem("History", null, menuCommand);
-		menuItem.addItem("Help & Information", null, menuCommand);
-		menuItem.addItem("Sign Out", null, menuCommand);
+		MenuItem menuItem = menubar.addItem(Messages.getString("MainView.menuItemCaption"), new ThemeResource(Messages.getString("MainView.menuItem")), null); 
+		MenuItem homeSubMenuItem = menuItem.addItem(Messages.getString("MainView.homeSubMenuItem"), null, menuCommand); 
+		MenuItem reportsMenuItem = menuItem.addItem(Messages.getString("MainView.reportsMenuItem"), null, menuCommand); 
+		MenuItem historyMenuItem = menuItem.addItem(Messages.getString("MainView.historyMenuItem"), null, menuCommand); 
+		MenuItem helpInfoMenuItem = menuItem.addItem(Messages.getString("MainView.helpInfoMenuItem"), null, menuCommand); 
+		MenuItem signOutMenuItem = menuItem.addItem(Messages.getString("MainView.signOutMenuItem"), null, menuCommand); 
 		
 		MenuBar rightMenu = new MenuBar();
-		MenuItem homeMenuItem = rightMenu.addItem("Home", null, menuCommand);        
-		MenuItem helpMenuItem = rightMenu.addItem("Help & Information", null, menuCommand);
-		MenuItem myaccountMenuItem = rightMenu.addItem("My Account", null, null);
-		myaccountMenuItem.addItem("Change Password", null, menuCommand);
+		MenuItem homeMenuItem = rightMenu.addItem(Messages.getString("MainView.homeMenuItem"), null, menuCommand);         
+		MenuItem helpMenuItem = rightMenu.addItem(Messages.getString("MainView.helpMenuItem"), null, menuCommand); 
+		MenuItem myaccountMenuItem = rightMenu.addItem(Messages.getString("MainView.myaccountMenuItem"), null, null); 
+		MenuItem changePasswordMenuItem = myaccountMenuItem.addItem(Messages.getString("MainView.changePasswordMenuItem"), null, menuCommand); 
 		
-		headerTemplate.addComponent(menubar, "menubar");
-		headerTemplate.addComponent(rightMenu, "rightMenu");
+		headerTemplate.addComponent(menubar, Messages.getString("MainView.menubar")); 
+		headerTemplate.addComponent(rightMenu, Messages.getString("MainView.rightMenu")); 
 		
 		rootVerticalLayout.addComponent(headerTemplate);	
 		
-		AbstractOrderedLayout portalHomeHorizontalLayout = new HorizontalLayout();
-		portalHomeHorizontalLayout.setSpacing(true);
-		portalHomeHorizontalLayout.setWidth("100%");
-		portalHomeHorizontalLayout.setHeight("15%");
-		portalHomeHorizontalLayout.setMargin(new MarginInfo(false, true, false, true));
+		AbstractOrderedLayout campaignHomeHorizontalLayout = new HorizontalLayout();
+		campaignHomeHorizontalLayout.setSpacing(true);
+		campaignHomeHorizontalLayout.setWidth(Messages.getString("MainView.campaignHomeHorizontalLayoutWidth")); 
+		campaignHomeHorizontalLayout.setHeight(Messages.getString("MainView.campaignHomeHorizontalLayoutHeight")); 
+		campaignHomeHorizontalLayout.setMargin(new MarginInfo(false, true, false, true));
 		
-		Label portalHomeLabel = new Label("<b><font size='7'>Portal Home</font></b>", ContentMode.HTML);
-		portalHomeHorizontalLayout.addComponent(portalHomeLabel);
-		portalHomeHorizontalLayout.setComponentAlignment(portalHomeLabel, Alignment.MIDDLE_LEFT);
+		Label campaignHomeLabel = new Label(Messages.getString("MainView.campaignHomeLabel"), ContentMode.HTML); 
+		campaignHomeHorizontalLayout.addComponent(campaignHomeLabel);
+		campaignHomeHorizontalLayout.setComponentAlignment(campaignHomeLabel, Alignment.MIDDLE_LEFT);
 		
 		AbstractOrderedLayout welcomeVerticalLayout = new VerticalLayout();
 		welcomeVerticalLayout.setSizeUndefined();
 		
-		Label welcomeLabel = new Label("<b>WELCOME</b>", ContentMode.HTML);
+		Label welcomeLabel = new Label(Messages.getString("MainView.welcomeLabel"), ContentMode.HTML); 
 		welcomeVerticalLayout.addComponent(welcomeLabel);
 		welcomeVerticalLayout.setComponentAlignment(welcomeLabel, Alignment.TOP_RIGHT);
-		Label usernameLabel = new Label("Tim Bucktoo");
+		Label usernameLabel = new Label(Messages.getString("MainView.usernameLabel")); 
 		welcomeVerticalLayout.addComponent(usernameLabel);
 		welcomeVerticalLayout.setComponentAlignment(usernameLabel, Alignment.TOP_RIGHT);        
         
-        Embedded companyLogoImage = new Embedded(null, new ThemeResource("layouts/images/company_logo.jpg"));
-        companyLogoImage.setHeight("50%");
-        companyLogoImage.setWidth("50%");
+        Embedded companyLogoImage = new Embedded(null, new ThemeResource(Messages.getString("MainView.companyLogoImage"))); 
+        companyLogoImage.setHeight(Messages.getString("MainView.companyLogoImageHeight")); 
+        companyLogoImage.setWidth(Messages.getString("MainView.companyLogoImageWidth")); 
 		welcomeVerticalLayout.addComponent(companyLogoImage);
         welcomeVerticalLayout.setComponentAlignment(companyLogoImage, Alignment.TOP_RIGHT);
 		
-		portalHomeHorizontalLayout.addComponent(welcomeVerticalLayout);	
-		portalHomeHorizontalLayout.setComponentAlignment(welcomeVerticalLayout, Alignment.TOP_RIGHT);		
+		campaignHomeHorizontalLayout.addComponent(welcomeVerticalLayout);	
+		campaignHomeHorizontalLayout.setComponentAlignment(welcomeVerticalLayout, Alignment.TOP_RIGHT);		
 		
-		rootVerticalLayout.addComponent(portalHomeHorizontalLayout);	
+		rootVerticalLayout.addComponent(campaignHomeHorizontalLayout);	
 		
-		Label  pageTitleLineLabel  = new Label("<hr/>", ContentMode.HTML);
+		Label  pageTitleLineLabel  = new Label(Messages.getString("MainView.pageTitleLineLabel"), ContentMode.HTML); 
 		
 		rootVerticalLayout.addComponent(pageTitleLineLabel);
 		
 		AbstractOrderedLayout contactRootHorizontalLayout = new HorizontalLayout();
 		contactRootHorizontalLayout.setSpacing(true);
-		contactRootHorizontalLayout.setWidth("100%");
-		contactRootHorizontalLayout.setHeight("15%");
+		contactRootHorizontalLayout.setWidth(Messages.getString("MainView.contactRootHorizontalLayoutWidth")); 
 		contactRootHorizontalLayout.setMargin(new MarginInfo(false, true, false, true));
-		
-		Embedded uploadImage = new Embedded(null, new ThemeResource("layouts/images/upload.png"));
-		contactRootHorizontalLayout.addComponent(uploadImage);
-		contactRootHorizontalLayout.setComponentAlignment(uploadImage, Alignment.MIDDLE_LEFT);
 		
 		rootVerticalLayout.addComponent(contactRootHorizontalLayout);		
 		
-		Label  contactLabel  = new Label("<b>Questions?</b>", ContentMode.HTML);
+		Label  contactLabel  = new Label(Messages.getString("MainView.contactLabel"), ContentMode.HTML); 
 		
-		Link contactLink = new Link("Contact Mike Nichols", null);
+		ActiveLink contactLink = new ActiveLink(Messages.getString("MainView.contactLinkText"), new ExternalResource(Messages.getString("MainView.contactLink"))); 
+		contactLink.addListener(new LinkActivatedListener() {           
+            public void linkActivated(LinkActivatedEvent event) {                
+                        //event.isLinkOpened()
+            }
+        });
 		
 		AbstractOrderedLayout contactHorizontalLayout = new HorizontalLayout(contactLabel, contactLink);
 		contactHorizontalLayout.setSpacing(true);
 		contactHorizontalLayout.setSizeUndefined();
 		
 		contactRootHorizontalLayout.addComponent(contactHorizontalLayout);
-		contactRootHorizontalLayout.setComponentAlignment(contactHorizontalLayout, Alignment.TOP_RIGHT);	
-		
-		Label  contactLineLabel  = new Label("<hr/>", ContentMode.HTML);
-		
-		rootVerticalLayout.addComponent(contactLineLabel);
-		
-		Label portalActivityLabel = new Label("<b><font size='5'>Your Portal Activity</font></b>", ContentMode.HTML);
-			
-		AbstractOrderedLayout activityVerticalLayout = new VerticalLayout();
-		activityVerticalLayout.setSizeFull();
-		activityVerticalLayout.setMargin(new MarginInfo(false, true, false, true));
-		activityVerticalLayout.addComponent(portalActivityLabel);
-		
-		rootVerticalLayout.addComponent(activityVerticalLayout);
-		
-        final ComboBox iWantToCombobox = new ComboBox("I Want To");
-        iWantToCombobox.setInvalidAllowed(false);
-        iWantToCombobox.setInputPrompt("I want to");
-        iWantToCombobox.addItem("View Transaction Details");
-        iWantToCombobox.addItem("View Creative");
-        
-        Label detailsLabel = new Label("<b>Pick-Up with changes</b><br>Confirmation 11223344", ContentMode.HTML);
-        Label orderLabel = new Label("<b>Star Ledger</b><br>Half Page, Black and White", ContentMode.HTML);
-		
-		final Table activityTable = new Table();
-		activityTable.setHeight("350px");
-		activityTable.addContainerProperty("Date", Date.class, null);
-		activityTable.addContainerProperty("Details", Label.class, null);
-		activityTable.addContainerProperty("Order", Label.class, null);
-		activityTable.addContainerProperty("Action", ComboBox.class, null);
-        
-        List<Object> iWantToList = new CopyOnWriteArrayList<Object>();
-        iWantToList.add(new Date());
-        iWantToList.add(detailsLabel);
-        iWantToList.add(orderLabel);
-        iWantToList.add(iWantToCombobox);
-		
-		Object[] iWantToArray = iWantToList.toArray(new Object[iWantToList.size()]);
-		activityTable.addItem(iWantToArray, null);
-		
-		activityVerticalLayout.addComponent(activityTable);
-
+		contactRootHorizontalLayout.setComponentAlignment(contactHorizontalLayout, Alignment.TOP_RIGHT);		
 		
 	}
 
