@@ -142,11 +142,11 @@ public class PortalView extends CustomComponent implements View{
 		
 		rootVerticalLayout.addComponent(activityVerticalLayout);
 		
-        final ComboBox iWantToCombobox = new ComboBox("I Want To");
-        iWantToCombobox.setInvalidAllowed(false);
-        iWantToCombobox.setInputPrompt("I want to");
-        iWantToCombobox.addItem("View Transaction Details");
-        iWantToCombobox.addItem("View Creative");
+        final ComboBox iWantToComboBox = new ComboBox("I Want To");
+        iWantToComboBox.setInvalidAllowed(false);
+        iWantToComboBox.setInputPrompt("I want to");
+        iWantToComboBox.addItem("View Transaction Details");
+        iWantToComboBox.addItem("View Creative");
         
         Label detailsLabel = new Label("<b>Pick-Up with changes</b><br>Confirmation 11223344", ContentMode.HTML);
         Label orderLabel = new Label("<b>Star Ledger</b><br>Half Page, Black and White", ContentMode.HTML);
@@ -162,7 +162,7 @@ public class PortalView extends CustomComponent implements View{
         iWantToList.add(new Date());
         iWantToList.add(detailsLabel);
         iWantToList.add(orderLabel);
-        iWantToList.add(iWantToCombobox);
+        iWantToList.add(iWantToComboBox);
 		
 		Object[] iWantToArray = iWantToList.toArray(new Object[iWantToList.size()]);
 		activityTable.addItem(iWantToArray, null);

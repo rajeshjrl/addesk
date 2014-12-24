@@ -12353,6 +12353,27 @@ div.v-layout.v-horizontal.v-widget {
 	font-weight: bold;
 }
 
+.cnitheme .sub_window_header_label {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.cnitheme .filters_applied_label {
+	color: red;
+}
+
+.cnitheme .number_of_rows_label {
+	color: red;
+}
+
+.cnitheme .needs_approval_label {
+	color: blue;
+}
+
+.cnitheme .upload_creative_label {
+	font-size: 20px;
+}
+
 .cnitheme em {
 	font-weight: bold;
 }

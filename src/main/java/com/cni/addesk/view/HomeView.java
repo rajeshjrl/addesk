@@ -123,6 +123,7 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
         // Create the user input field
         username = new TextField(Messages.getString("HomeView.usernameFieldText")); 
         username.setWidth(Messages.getString("HomeView.usernameFieldWidth")); 
+        username.focus();
         //user.setInputPrompt("Your Login Name");
 
         // Create the password input field
