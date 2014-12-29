@@ -68,8 +68,9 @@ public class MainView extends CustomComponent implements View{
 	};
 	
 	public MainView(){
-		setSizeFull();
+		//setSizeFull();
 	    rootVerticalLayout = new VerticalLayout();
+	    rootVerticalLayout.setSizeFull();
 		setCompositionRoot(rootVerticalLayout);
 		CustomLayout headerTemplate = new CustomLayout(Messages.getString("MainView.headerTemplate"));  
 		

@@ -74,8 +74,9 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
 		if(currentUser.isAuthenticated()){
 			currentUser.logout();
 		}
-	    setSizeFull();
+	    //setSizeFull();
 	    rootVerticalLayout = new VerticalLayout();
+	    rootVerticalLayout.setSizeFull();
 		setCompositionRoot(rootVerticalLayout);
 		CustomLayout headerTemplate = new CustomLayout(Messages.getString("HomeView.headerTemplate")); 
 		MenuBar menubar = new MenuBar();
