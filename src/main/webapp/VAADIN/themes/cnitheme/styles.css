@@ -12290,7 +12290,7 @@ div.v-layout.v-horizontal.v-widget {
 	box-shadow: none;
 }
 
-.cnitheme .menu .menu-logo {
+.cnitheme .menu .menu_logo {
 	display: inline;
 	float: left;
 }
@@ -12376,4 +12376,24 @@ div.v-layout.v-horizontal.v-widget {
 
 .cnitheme em {
 	font-weight: bold;
+}
+
+.cnitheme .v-button {
+	position: relative;
+	text-align: center;
+	white-space: nowrap;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	cursor: pointer;
+	height: 37px;
+	padding: 0 16px;
+	color: #ffffff;
+	font-weight: 400;
+	border: none;
+	background-color: #6a6aa6;
+	background-image: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	text-shadow: none;
 }

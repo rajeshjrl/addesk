@@ -87,6 +87,7 @@ body{
 $banner_lighter_shade: #f4a460 !default;
 $banner_darker_shade: #926239 !default;
 $banner_text_color: #ffffff; //not used not default since it is a hyper link
+$button_text_color: #ffffff !default;
 $banner_text_shadow: #000000 !default;
 $banner_text_selection: #49311c !default;
 $banner_border_left: #fbe3cf !default;
@@ -138,9 +139,9 @@ header{
 			box-shadow: none;
 		}
 	}
-	.menu-logo{
-		display:inline;
-		float:left;
+	.menu_logo{
+		display: inline;
+		float: left;
 	}
 	.right_menu{
     	.v-menubar{
@@ -231,6 +232,28 @@ hr {
 
 em {
  	font-weight: bold;
+}
+
+.v-button {
+	position: relative;
+	text-align: center;
+	white-space: nowrap;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	cursor: pointer;
+	height: 37px;
+	padding: 0 16px;
+	color: $button_text_color;
+	font-weight: 400;
+	
+	
+	border: none;
+	background-color: #6a6aa6;
+	background-image: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	text-shadow: none;
 }
 
 }

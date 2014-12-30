@@ -50,7 +50,7 @@ import com.vaadin.ui.themes.BaseTheme;
 
 public class MainView extends CustomComponent implements View{
 	
-	public static final String NAME = Messages.getString("MainView.mainViewName");  
+	public static final String NAME = Messages.getString("MainView.mainViewName");   //$NON-NLS-1$
 	private final AbstractOrderedLayout rootVerticalLayout;
 	
 	private MenuBar.Command menuCommand = new MenuBar.Command() {
@@ -58,7 +58,7 @@ public class MainView extends CustomComponent implements View{
 	    	if(7 == selectedItem.getId()){
 	    		
 	    		// "Logout" the user
-	            getSession().setAttribute(Messages.getString("MainView.sessionUser"), null);  
+	            getSession().setAttribute(Messages.getString("MainView.sessionUser"), null);   //$NON-NLS-1$
 
 	            // Refresh this view, should redirect to login view
 	            getUI().getNavigator().navigateTo(NAME);
@@ -72,50 +72,53 @@ public class MainView extends CustomComponent implements View{
 	    rootVerticalLayout = new VerticalLayout();
 	    rootVerticalLayout.setSizeFull();
 		setCompositionRoot(rootVerticalLayout);
-		CustomLayout headerTemplate = new CustomLayout(Messages.getString("MainView.headerTemplate"));  
+		CustomLayout headerTemplate = new CustomLayout(Messages.getString("MainView.headerTemplate"));   //$NON-NLS-1$
 		
 		MenuBar menubar = new MenuBar();
-		MenuItem menuItem = menubar.addItem(Messages.getString("MainView.menuItemCaption"), new ThemeResource(Messages.getString("MainView.menuItem")), null);  
-		MenuItem homeSubMenuItem = menuItem.addItem(Messages.getString("MainView.homeSubMenuItem"), null, menuCommand);  
-		MenuItem reportsMenuItem = menuItem.addItem(Messages.getString("MainView.reportsMenuItem"), null, menuCommand);  
-		MenuItem historyMenuItem = menuItem.addItem(Messages.getString("MainView.historyMenuItem"), null, menuCommand);  
-		MenuItem helpInfoMenuItem = menuItem.addItem(Messages.getString("MainView.helpInfoMenuItem"), null, menuCommand);  
-		MenuItem signOutMenuItem = menuItem.addItem(Messages.getString("MainView.signOutMenuItem"), null, menuCommand);  
+		MenuItem menuItem = menubar.addItem(Messages.getString("MainView.menuItemCaption"), new ThemeResource(Messages.getString("MainView.menuItem")), null);   //$NON-NLS-1$ //$NON-NLS-2$
+		MenuItem homeSubMenuItem = menuItem.addItem(Messages.getString("MainView.homeSubMenuItem"), null, menuCommand);   //$NON-NLS-1$
+		MenuItem reportsMenuItem = menuItem.addItem(Messages.getString("MainView.reportsMenuItem"), null, menuCommand);   //$NON-NLS-1$
+		MenuItem historyMenuItem = menuItem.addItem(Messages.getString("MainView.historyMenuItem"), null, menuCommand);   //$NON-NLS-1$
+		MenuItem helpInfoMenuItem = menuItem.addItem(Messages.getString("MainView.helpInfoMenuItem"), null, menuCommand);   //$NON-NLS-1$
+		MenuItem signOutMenuItem = menuItem.addItem(Messages.getString("MainView.signOutMenuItem"), null, menuCommand);  //$NON-NLS-1$
+		
+		Label logoLabel = new Label(Messages.getString("MainView.logoLabel"), ContentMode.HTML); //$NON-NLS-1$
 		
 		MenuBar rightMenu = new MenuBar();
-		MenuItem homeMenuItem = rightMenu.addItem(Messages.getString("MainView.homeMenuItem"), null, menuCommand);          
-		MenuItem helpMenuItem = rightMenu.addItem(Messages.getString("MainView.helpMenuItem"), null, menuCommand);  
-		MenuItem myaccountMenuItem = rightMenu.addItem(Messages.getString("MainView.myaccountMenuItem"), null, null);  
-		MenuItem changePasswordMenuItem = myaccountMenuItem.addItem(Messages.getString("MainView.changePasswordMenuItem"), null, menuCommand);  
+		MenuItem homeMenuItem = rightMenu.addItem(Messages.getString("MainView.homeMenuItem"), null, menuCommand);           //$NON-NLS-1$
+		MenuItem helpMenuItem = rightMenu.addItem(Messages.getString("MainView.helpMenuItem"), null, menuCommand);   //$NON-NLS-1$
+		MenuItem myaccountMenuItem = rightMenu.addItem(Messages.getString("MainView.myaccountMenuItem"), null, null);   //$NON-NLS-1$
+		MenuItem changePasswordMenuItem = myaccountMenuItem.addItem(Messages.getString("MainView.changePasswordMenuItem"), null, menuCommand);   //$NON-NLS-1$
 		
-		headerTemplate.addComponent(menubar, Messages.getString("MainView.menubar"));  
-		headerTemplate.addComponent(rightMenu, Messages.getString("MainView.rightMenu"));  
+		headerTemplate.addComponent(menubar, Messages.getString("MainView.menubar"));  //$NON-NLS-1$
+		headerTemplate.addComponent(logoLabel, Messages.getString("MainView.logo"));  //$NON-NLS-1$
+		headerTemplate.addComponent(rightMenu, Messages.getString("MainView.rightMenu"));   //$NON-NLS-1$
 		
 		rootVerticalLayout.addComponent(headerTemplate);	
 		
 		AbstractOrderedLayout campaignHomeHorizontalLayout = new HorizontalLayout();
 		campaignHomeHorizontalLayout.setSpacing(true);
-		campaignHomeHorizontalLayout.setWidth(Messages.getString("MainView.campaignHomeHorizontalLayoutWidth"));  
-		campaignHomeHorizontalLayout.setHeight(Messages.getString("MainView.campaignHomeHorizontalLayoutHeight"));  
+		campaignHomeHorizontalLayout.setWidth(Messages.getString("MainView.campaignHomeHorizontalLayoutWidth"));   //$NON-NLS-1$
+		campaignHomeHorizontalLayout.setHeight(Messages.getString("MainView.campaignHomeHorizontalLayoutHeight"));   //$NON-NLS-1$
 		campaignHomeHorizontalLayout.setMargin(new MarginInfo(false, true, false, true));
 		
-		Label campaignHomeLabel = new Label(Messages.getString("MainView.campaignHomeLabel"), ContentMode.HTML);  
+		Label campaignHomeLabel = new Label(Messages.getString("MainView.campaignHomeLabel"), ContentMode.HTML);   //$NON-NLS-1$
 		campaignHomeHorizontalLayout.addComponent(campaignHomeLabel);
 		campaignHomeHorizontalLayout.setComponentAlignment(campaignHomeLabel, Alignment.MIDDLE_LEFT);
 		
 		AbstractOrderedLayout welcomeVerticalLayout = new VerticalLayout();
 		welcomeVerticalLayout.setSizeUndefined();
 		
-		Label welcomeLabel = new Label(Messages.getString("MainView.welcomeLabel"), ContentMode.HTML);  
+		Label welcomeLabel = new Label(Messages.getString("MainView.welcomeLabel"), ContentMode.HTML);   //$NON-NLS-1$
 		welcomeVerticalLayout.addComponent(welcomeLabel);
 		welcomeVerticalLayout.setComponentAlignment(welcomeLabel, Alignment.TOP_RIGHT);
-		Label usernameLabel = new Label(Messages.getString("MainView.usernameLabel"));  
+		Label usernameLabel = new Label(Messages.getString("MainView.usernameLabel"));   //$NON-NLS-1$
 		welcomeVerticalLayout.addComponent(usernameLabel);
 		welcomeVerticalLayout.setComponentAlignment(usernameLabel, Alignment.TOP_RIGHT);        
         
-        Embedded companyLogoImage = new Embedded(null, new ThemeResource(Messages.getString("MainView.companyLogoImage")));  
-        companyLogoImage.setHeight(Messages.getString("MainView.companyLogoImageHeight"));  
-        companyLogoImage.setWidth(Messages.getString("MainView.companyLogoImageWidth"));  
+        Embedded companyLogoImage = new Embedded(null, new ThemeResource(Messages.getString("MainView.companyLogoImage")));   //$NON-NLS-1$
+        companyLogoImage.setHeight(Messages.getString("MainView.companyLogoImageHeight"));   //$NON-NLS-1$
+        companyLogoImage.setWidth(Messages.getString("MainView.companyLogoImageWidth"));   //$NON-NLS-1$
 		welcomeVerticalLayout.addComponent(companyLogoImage);
         welcomeVerticalLayout.setComponentAlignment(companyLogoImage, Alignment.TOP_RIGHT);
 		
@@ -124,20 +127,20 @@ public class MainView extends CustomComponent implements View{
 		
 		rootVerticalLayout.addComponent(campaignHomeHorizontalLayout);	
 		
-		Label  pageTitleLineLabel  = new Label(Messages.getString("MainView.pageTitleLineLabel"), ContentMode.HTML);  
+		Label  pageTitleLineLabel  = new Label(Messages.getString("MainView.pageTitleLineLabel"), ContentMode.HTML);   //$NON-NLS-1$
 		
 		rootVerticalLayout.addComponent(pageTitleLineLabel);
 		
 		AbstractOrderedLayout contactRootHorizontalLayout = new HorizontalLayout();
 		contactRootHorizontalLayout.setSpacing(true);
-		contactRootHorizontalLayout.setWidth(Messages.getString("MainView.contactRootHorizontalLayoutWidth"));  
+		contactRootHorizontalLayout.setWidth(Messages.getString("MainView.contactRootHorizontalLayoutWidth"));   //$NON-NLS-1$
 		contactRootHorizontalLayout.setMargin(new MarginInfo(false, true, false, true));
 		
 		rootVerticalLayout.addComponent(contactRootHorizontalLayout);		
 		
-		Label  contactLabel  = new Label(Messages.getString("MainView.contactLabel"), ContentMode.HTML);  
+		Label  contactLabel  = new Label(Messages.getString("MainView.contactLabel"), ContentMode.HTML);   //$NON-NLS-1$
 		
-		ActiveLink contactLink = new ActiveLink(Messages.getString("MainView.contactLinkText"), new ExternalResource(Messages.getString("MainView.contactLink")));  
+		ActiveLink contactLink = new ActiveLink(Messages.getString("MainView.contactLinkText"), new ExternalResource(Messages.getString("MainView.contactLink")));   //$NON-NLS-1$ //$NON-NLS-2$
 		contactLink.addListener(new LinkActivatedListener() {           
             public void linkActivated(LinkActivatedEvent event) {                
                         //event.isLinkOpened()
@@ -146,8 +149,8 @@ public class MainView extends CustomComponent implements View{
 		
 		AbstractOrderedLayout rootPortalSelectionsHorizontalLayout = new HorizontalLayout();
 		rootPortalSelectionsHorizontalLayout.setSpacing(true);
-		rootPortalSelectionsHorizontalLayout.setWidth(Messages.getString("MainView.rootPortalSelectionsHorizontalLayoutWidth")); 
-		rootPortalSelectionsHorizontalLayout.setHeight(Messages.getString("MainView.rootPortalSelectionsHorizontalLayoutHeight")); 
+		rootPortalSelectionsHorizontalLayout.setWidth(Messages.getString("MainView.rootPortalSelectionsHorizontalLayoutWidth"));  //$NON-NLS-1$
+		rootPortalSelectionsHorizontalLayout.setHeight(Messages.getString("MainView.rootPortalSelectionsHorizontalLayoutHeight"));  //$NON-NLS-1$
 		
 		AbstractOrderedLayout contactHorizontalLayout = new HorizontalLayout(contactLabel, contactLink);
 		contactHorizontalLayout.setSpacing(true);
@@ -165,21 +168,21 @@ public class MainView extends CustomComponent implements View{
 		
 		ComboBox viewComboBox = new ComboBox();
 		viewComboBox.setNullSelectionAllowed(false);
-		viewComboBox.setCaption(Messages.getString("MainView.viewComboBoxCaption")); 
-		viewComboBox.addItem(Messages.getString("MainView.viewComboBox1")); 
-		viewComboBox.addItem(Messages.getString("MainView.viewComboBox2")); 
-		viewComboBox.addItem(Messages.getString("MainView.viewComboBox3")); 
-		viewComboBox.addItem(Messages.getString("MainView.viewComboBox4")); 
+		viewComboBox.setCaption(Messages.getString("MainView.viewComboBoxCaption"));  //$NON-NLS-1$
+		viewComboBox.addItem(Messages.getString("MainView.viewComboBox1"));  //$NON-NLS-1$
+		viewComboBox.addItem(Messages.getString("MainView.viewComboBox2"));  //$NON-NLS-1$
+		viewComboBox.addItem(Messages.getString("MainView.viewComboBox3"));  //$NON-NLS-1$
+		viewComboBox.addItem(Messages.getString("MainView.viewComboBox4"));  //$NON-NLS-1$
 		
 		ComboBox sortComboBox = new ComboBox();
 		sortComboBox.setNullSelectionAllowed(false);
-		sortComboBox.setCaption(Messages.getString("MainView.sortComboBoxCaption")); 
-		sortComboBox.addItem(Messages.getString("MainView.sortComboBox1")); 
-		sortComboBox.addItem(Messages.getString("MainView.sortComboBox2")); 
+		sortComboBox.setCaption(Messages.getString("MainView.sortComboBoxCaption"));  //$NON-NLS-1$
+		sortComboBox.addItem(Messages.getString("MainView.sortComboBox1"));  //$NON-NLS-1$
+		sortComboBox.addItem(Messages.getString("MainView.sortComboBox2"));  //$NON-NLS-1$
 		
-		Button filterButton = new Button(Messages.getString("MainView.filterButtonText")); 
+		Button filterButton = new Button(Messages.getString("MainView.filterButtonText"));  //$NON-NLS-1$
 		
-		final Label filtersAppliedLabel = new Label(Messages.getString("MainView.filtersAppliedLabel"), ContentMode.HTML); 
+		final Label filtersAppliedLabel = new Label(Messages.getString("MainView.filtersAppliedLabel"), ContentMode.HTML);  //$NON-NLS-1$
 		filtersAppliedLabel.setVisible(false);
 		
 		filterButton.addClickListener(new Button.ClickListener() {
@@ -189,8 +192,8 @@ public class MainView extends CustomComponent implements View{
             	
             	// Create a sub-window and add it to the main window
             	final Window subWindow = new Window();
-            	subWindow.setWidth(Messages.getString("MainView.subWindowWidth")); 
-            	subWindow.setHeight(Messages.getString("MainView.subWindowHeight")); 
+            	subWindow.setWidth(Messages.getString("MainView.subWindowWidth"));  //$NON-NLS-1$
+            	subWindow.setHeight(Messages.getString("MainView.subWindowHeight"));  //$NON-NLS-1$
             	subWindow.setImmediate(true);
             	subWindow.setModal(true);
             	
@@ -198,29 +201,29 @@ public class MainView extends CustomComponent implements View{
             	subWindowVerticalLayout.setSizeUndefined();
             	subWindowVerticalLayout.setMargin(true);
             	
-            	Label campaignListFiltersLabel = new Label(Messages.getString("MainView.campaignListFiltersLabel"), ContentMode.HTML); 
+            	Label campaignListFiltersLabel = new Label(Messages.getString("MainView.campaignListFiltersLabel"), ContentMode.HTML);  //$NON-NLS-1$
             	subWindowVerticalLayout.addComponent(campaignListFiltersLabel);
             	
             	final ComboBox advertiserComboBox = new ComboBox();
             	advertiserComboBox.setNullSelectionAllowed(false);
-            	advertiserComboBox.setCaption(Messages.getString("MainView.advertiserComboBoxCaption")); 
-            	advertiserComboBox.addItem(Messages.getString("MainView.advertiserComboBox1")); 
+            	advertiserComboBox.setCaption(Messages.getString("MainView.advertiserComboBoxCaption"));  //$NON-NLS-1$
+            	advertiserComboBox.addItem(Messages.getString("MainView.advertiserComboBox1"));  //$NON-NLS-1$
             	subWindowVerticalLayout.addComponent(advertiserComboBox);
             	
-            	Label dateRangeLabel = new Label(Messages.getString("MainView.dateRangeLabel")); 
+            	Label dateRangeLabel = new Label(Messages.getString("MainView.dateRangeLabel"));  //$NON-NLS-1$
             	subWindowVerticalLayout.addComponent(dateRangeLabel);
             	
             	final PopupDateField fromDate = new PopupDateField();
             	// Set the prompt
             	fromDate.setValue(new Date());            	        
             	// Set width explicitly to accommodate the prompt
-            	fromDate.setWidth(Messages.getString("MainView.fromDateWidth")); 
+            	fromDate.setWidth(Messages.getString("MainView.fromDateWidth"));  //$NON-NLS-1$
             	
             	final PopupDateField toDate = new PopupDateField();
             	// Set the prompt
             	toDate.setValue(new Date());            	        
             	// Set width explicitly to accommodate the prompt
-            	toDate.setWidth(Messages.getString("MainView.toDateWidth")); 
+            	toDate.setWidth(Messages.getString("MainView.toDateWidth"));  //$NON-NLS-1$
             	
             	AbstractOrderedLayout dateRangeHorizontalLayout = new HorizontalLayout(fromDate, toDate);
             	dateRangeHorizontalLayout.setSizeFull();
@@ -230,10 +233,10 @@ public class MainView extends CustomComponent implements View{
             	
             	final ComboBox campaignTypeComboBox = new ComboBox();
             	campaignTypeComboBox.setNullSelectionAllowed(false);
-            	campaignTypeComboBox.setCaption(Messages.getString("MainView.campaignTypeComboBoxCaption")); 
-            	campaignTypeComboBox.addItem(Messages.getString("MainView.campaignTypeComboBox1")); 
-            	campaignTypeComboBox.addItem(Messages.getString("MainView.campaignTypeComboBox2")); 
-            	campaignTypeComboBox.addItem(Messages.getString("MainView.campaignTypeComboBox3")); 
+            	campaignTypeComboBox.setCaption(Messages.getString("MainView.campaignTypeComboBoxCaption"));  //$NON-NLS-1$
+            	campaignTypeComboBox.addItem(Messages.getString("MainView.campaignTypeComboBox1"));  //$NON-NLS-1$
+            	campaignTypeComboBox.addItem(Messages.getString("MainView.campaignTypeComboBox2"));  //$NON-NLS-1$
+            	campaignTypeComboBox.addItem(Messages.getString("MainView.campaignTypeComboBox3"));  //$NON-NLS-1$
             	
             	subWindowVerticalLayout.addComponent(campaignTypeComboBox);
             	
@@ -241,25 +244,25 @@ public class MainView extends CustomComponent implements View{
                 final BeanItemContainer<ProductsName> productsContainer =  new BeanItemContainer<ProductsName>(ProductsName.class);
                 
                 // Put data in it
-                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer1"))); 
-                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer2"))); 
-                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer3"))); 
-                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer4"))); 
-                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer5"))); 
-                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer6"))); 
-                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer7"))); 
-                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer8"))); 
-                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer9"))); 
-                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer10"))); 
+                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer1")));  //$NON-NLS-1$
+                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer2")));  //$NON-NLS-1$
+                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer3")));  //$NON-NLS-1$
+                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer4")));  //$NON-NLS-1$
+                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer5")));  //$NON-NLS-1$
+                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer6")));  //$NON-NLS-1$
+                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer7")));  //$NON-NLS-1$
+                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer8")));  //$NON-NLS-1$
+                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer9")));  //$NON-NLS-1$
+                productsContainer.addItem(new ProductsName(Messages.getString("MainView.productsContainer10")));  //$NON-NLS-1$
             	
-            	final ListSelect productsSelect = new ListSelect(Messages.getString("MainView.productsSelectCaption"), productsContainer); 
+            	final ListSelect productsSelect = new ListSelect(Messages.getString("MainView.productsSelectCaption"), productsContainer);  //$NON-NLS-1$
             	//productsSelect.setMultiSelect(true);
             	// Enable null selection
             	productsSelect.setNullSelectionAllowed(false);
             	// Set the caption mode to read the caption directly
                 // from the 'name' property of the bean
             	productsSelect.setItemCaptionMode(ListSelect.ItemCaptionMode.PROPERTY );
-            	productsSelect.setItemCaptionPropertyId(Messages.getString("MainView.itemCaptionPropertyId")); 
+            	productsSelect.setItemCaptionPropertyId(Messages.getString("MainView.itemCaptionPropertyId"));  //$NON-NLS-1$
             	
             	productsSelect.addValueChangeListener(new Property.ValueChangeListener() {
     		        public void valueChange(ValueChangeEvent event) {
@@ -274,9 +277,9 @@ public class MainView extends CustomComponent implements View{
             	
             	subWindowVerticalLayout.addComponent(productsSelect);
             	
-            	Button subWindowApplyButton = new Button(Messages.getString("MainView.subWindowApplyButtonText")); 
-            	Button subWindowCancelButton = new Button(Messages.getString("MainView.subWindowCancelButtonText")); 
-            	Button subWindowClearButton = new Button(Messages.getString("MainView.subWindowClearButtonText")); 
+            	Button subWindowApplyButton = new Button(Messages.getString("MainView.subWindowApplyButtonText"));  //$NON-NLS-1$
+            	Button subWindowCancelButton = new Button(Messages.getString("MainView.subWindowCancelButtonText"));  //$NON-NLS-1$
+            	Button subWindowClearButton = new Button(Messages.getString("MainView.subWindowClearButtonText"));  //$NON-NLS-1$
             	
             	subWindowApplyButton.addClickListener(new ClickListener() {
                     public void buttonClick(ClickEvent event) {
@@ -325,9 +328,9 @@ public class MainView extends CustomComponent implements View{
 		uploadCreativeHorizontalLayout.setSizeUndefined();
 		uploadCreativeHorizontalLayout.setMargin(true);
 		
-		Embedded uploadImage = new Embedded(null, new ThemeResource(Messages.getString("MainView.uploadImage"))); 
+		Embedded uploadImage = new Embedded(null, new ThemeResource(Messages.getString("MainView.uploadImage")));  //$NON-NLS-1$
 		
-		ClickableLabel uploadCreativeLabel = new ClickableLabel(Messages.getString("MainView.uploadCreativeLabel")); 
+		ClickableLabel uploadCreativeLabel = new ClickableLabel(Messages.getString("MainView.uploadCreativeLabel"));  //$NON-NLS-1$
 		
 		uploadCreativeHorizontalLayout.addComponent(uploadImage);
 		uploadCreativeHorizontalLayout.addComponent(uploadCreativeLabel);
@@ -335,25 +338,25 @@ public class MainView extends CustomComponent implements View{
 		
 		rootVerticalLayout.addComponent(uploadCreativeHorizontalLayout);
 		
-		final ComboBox iWantToComboBox = new ComboBox(Messages.getString("MainView.iWantToComboBoxCaption")); 
+		final ComboBox iWantToComboBox = new ComboBox(Messages.getString("MainView.iWantToComboBoxCaption"));  //$NON-NLS-1$
         iWantToComboBox.setInvalidAllowed(false);
         iWantToComboBox.setNullSelectionAllowed(false);
-        iWantToComboBox.setInputPrompt(Messages.getString("MainView.iWantToComboBoxPrompt")); 
-        iWantToComboBox.addItem(Messages.getString("MainView.iWantToComboBox1")); 
-        iWantToComboBox.addItem(Messages.getString("MainView.iWantToComboBox2")); 
-        iWantToComboBox.addItem(Messages.getString("MainView.iWantToComboBox3")); 
-        iWantToComboBox.addItem(Messages.getString("MainView.iWantToComboBox4")); 
+        iWantToComboBox.setInputPrompt(Messages.getString("MainView.iWantToComboBoxPrompt"));  //$NON-NLS-1$
+        iWantToComboBox.addItem(Messages.getString("MainView.iWantToComboBox1"));  //$NON-NLS-1$
+        iWantToComboBox.addItem(Messages.getString("MainView.iWantToComboBox2"));  //$NON-NLS-1$
+        iWantToComboBox.addItem(Messages.getString("MainView.iWantToComboBox3"));  //$NON-NLS-1$
+        iWantToComboBox.addItem(Messages.getString("MainView.iWantToComboBox4"));  //$NON-NLS-1$
         
-        Label appearsLabel = new Label(Messages.getString("MainView.appearsLabel"), ContentMode.HTML); 
-        Label detailsLabel = new Label(Messages.getString("MainView.detailsLabel"), ContentMode.HTML); 
-        Label noticesLabel = new Label(Messages.getString("MainView.noticesLabel"), ContentMode.HTML); 
+        Label appearsLabel = new Label(Messages.getString("MainView.appearsLabel"), ContentMode.HTML);  //$NON-NLS-1$
+        Label detailsLabel = new Label(Messages.getString("MainView.detailsLabel"), ContentMode.HTML);  //$NON-NLS-1$
+        Label noticesLabel = new Label(Messages.getString("MainView.noticesLabel"), ContentMode.HTML);  //$NON-NLS-1$
 		
 		final Table activityTable = new Table();
-		activityTable.setHeight(Messages.getString("MainView.activityTableHeight")); 
-		activityTable.addContainerProperty(Messages.getString("MainView.activityTableColumn1"), Label.class, null); 
-		activityTable.addContainerProperty(Messages.getString("MainView.activityTableColumn2"), Label.class, null); 
-		activityTable.addContainerProperty(Messages.getString("MainView.activityTableColumn3"), Label.class, null); 
-		activityTable.addContainerProperty(Messages.getString("MainView.activityTableColumn4"), ComboBox.class, null); 
+		activityTable.setHeight(Messages.getString("MainView.activityTableHeight"));  //$NON-NLS-1$
+		activityTable.addContainerProperty(Messages.getString("MainView.activityTableColumn1"), Label.class, null);  //$NON-NLS-1$
+		activityTable.addContainerProperty(Messages.getString("MainView.activityTableColumn2"), Label.class, null);  //$NON-NLS-1$
+		activityTable.addContainerProperty(Messages.getString("MainView.activityTableColumn3"), Label.class, null);  //$NON-NLS-1$
+		activityTable.addContainerProperty(Messages.getString("MainView.activityTableColumn4"), ComboBox.class, null);  //$NON-NLS-1$
         
         List<Object> iWantToList = new CopyOnWriteArrayList<Object>();
         iWantToList.add(appearsLabel);
@@ -364,7 +367,7 @@ public class MainView extends CustomComponent implements View{
 		Object[] iWantToArray = iWantToList.toArray(new Object[iWantToList.size()]);
 		activityTable.addItem(iWantToArray, null);
 		
-		Label numberOfRowsLabel = new Label(Messages.getString("MainView.numberOfRowsLabel1") + activityTable.size() + Messages.getString("MainView.numberOfRowsLabel2"), ContentMode.HTML); 
+		Label numberOfRowsLabel = new Label(Messages.getString("MainView.numberOfRowsLabel1") + activityTable.size() + Messages.getString("MainView.numberOfRowsLabel2"), ContentMode.HTML);  //$NON-NLS-1$ //$NON-NLS-2$
 		
 		AbstractOrderedLayout tableVerticalLayout = new VerticalLayout();
 		tableVerticalLayout.setMargin(new MarginInfo(false, true, false, true));
