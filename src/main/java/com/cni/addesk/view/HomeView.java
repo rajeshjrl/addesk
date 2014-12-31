@@ -179,8 +179,10 @@ public class HomeView extends CustomComponent implements View, Button.ClickListe
             	currentUser.login(token);
             	// Store the current user in the service session
                 getSession().setAttribute(Messages.getString("HomeView.sessionUser"), Messages.getString("HomeView.guestUser"));  //$NON-NLS-1$ //$NON-NLS-2$
+                
+                getUI().getNavigator().addView(InformationView.NAME, InformationView.class);
                 // Navigate to main view
-                getUI().getNavigator().navigateTo(MainView.NAME);
+                getUI().getNavigator().navigateTo(InformationView.NAME);
               }
         });   
         
