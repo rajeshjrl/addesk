@@ -12397,3 +12397,14 @@ div.v-layout.v-horizontal.v-widget {
 	box-shadow: none;
 	text-shadow: none;
 }
+
+.cnitheme .information_needed {
+	font-size: 20px;
+	font-weight: bold;
+	color: #ff3232;
+}
+
+.cnitheme .contact_information {
+	font-size: 16px;
+	font-weight: bold;
+}
