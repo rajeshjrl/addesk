@@ -10,9 +10,9 @@ import org.vaadin.activelink.ActiveLink;
 import org.vaadin.activelink.ActiveLink.LinkActivatedEvent;
 import org.vaadin.activelink.ActiveLink.LinkActivatedListener;
 
+import com.cni.addesk.bean.ProductsName;
 import com.cni.addesk.custom.ClickableLabel;
 import com.cni.addesk.util.Messages;
-import com.cni.addesk.util.ProductsName;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;

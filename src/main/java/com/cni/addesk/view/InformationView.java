@@ -1,5 +1,6 @@
 package com.cni.addesk.view;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -10,12 +11,19 @@ import org.vaadin.activelink.ActiveLink;
 import org.vaadin.activelink.ActiveLink.LinkActivatedEvent;
 import org.vaadin.activelink.ActiveLink.LinkActivatedListener;
 
+import com.cni.addesk.bean.ContactInformation;
+import com.cni.addesk.bean.ProductsName;
 import com.cni.addesk.custom.ClickableLabel;
+import com.cni.addesk.custom.InstallContactInformationValidatorBlurListener;
+import com.cni.addesk.util.ErrorUtils;
 import com.cni.addesk.util.Messages;
-import com.cni.addesk.util.ProductsName;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.validator.BeanValidator;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.navigator.View;
@@ -25,6 +33,7 @@ import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.AbstractOrderedLayout;
+import com.vaadin.ui.AbstractTextField;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
@@ -32,6 +41,7 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Embedded;
+import com.vaadin.ui.Field;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
@@ -186,22 +196,39 @@ public class InformationView extends CustomComponent implements View{
 		contactInformationHorizontalLayout.setSpacing(true);
 		contactInformationHorizontalLayout.setSizeUndefined();
 		
-		TextField firstName = new TextField("First Name");
-		firstName.setImmediate(true);
+		final BeanItem<ContactInformation> item = new BeanItem<ContactInformation>(new ContactInformation());
+		final FieldGroup fieldGroup = new FieldGroup(item);
+		
+		final AbstractTextField firstName = (AbstractTextField)fieldGroup.buildAndBind("First name", "firstName");
+		firstName.setNullRepresentation("");
 		firstName.setInputPrompt("Required");
 		firstName.setWidth("350px");  
-		TextField lastName = new TextField("Last Name");
-		lastName.setImmediate(true);
+		final AbstractTextField lastName = (AbstractTextField)fieldGroup.buildAndBind("Last name", "lastName");
+		lastName.setNullRepresentation("");
 		lastName.setInputPrompt("Required");
-		lastName.setWidth("350px");  
-		TextField emailAddress = new TextField("email Address");
-		emailAddress.setImmediate(true);
+		lastName.setWidth("350px");
+		final AbstractTextField emailAddress = (AbstractTextField)fieldGroup.buildAndBind("email Address", "emailAddress");
+		emailAddress.setNullRepresentation("");
 		emailAddress.setInputPrompt("Required");
-		emailAddress.setWidth("350px");  
-		TextField phoneNumber = new TextField("Phone Number");
-		phoneNumber.setImmediate(true);
+		emailAddress.setWidth("350px");
+		final AbstractTextField phoneNumber = (AbstractTextField)fieldGroup.buildAndBind("Phone Number", "phoneNumber");
+		phoneNumber.setNullRepresentation("");
 		phoneNumber.setInputPrompt("Required");
 		phoneNumber.setWidth("350px");
+		
+		final AbstractTextField companyName = (AbstractTextField)fieldGroup.buildAndBind("Your Company Name", "companyName");
+		companyName.setNullRepresentation("");
+		companyName.setWidth("350px");  
+		final AbstractTextField advertiserName = (AbstractTextField)fieldGroup.buildAndBind("Last name", "advertiserName");
+		advertiserName.setNullRepresentation("");
+		advertiserName.setWidth("350px");
+		
+		/*firstName.addBlurListener(new InstallContactInformationValidatorBlurListener(firstName, "firstName"));
+		lastName.addBlurListener(new InstallContactInformationValidatorBlurListener(lastName, "lastName"));
+		emailAddress.addBlurListener(new InstallContactInformationValidatorBlurListener(emailAddress, "emailAddress"));
+		phoneNumber.addBlurListener(new InstallContactInformationValidatorBlurListener(phoneNumber, "phoneNumber"));
+		companyName.addBlurListener(new InstallContactInformationValidatorBlurListener(companyName, "companyName"));
+		advertiserName.addBlurListener(new InstallContactInformationValidatorBlurListener(advertiserName, "advertiserName"));*/
 		
 		AbstractOrderedLayout lhsFieldsVerticalLayout = new VerticalLayout(firstName, lastName, emailAddress, phoneNumber);
 		lhsFieldsVerticalLayout.setSpacing(true);
@@ -209,13 +236,6 @@ public class InformationView extends CustomComponent implements View{
 		lhsFieldsVerticalLayout.setMargin(new MarginInfo(true, true, true, false));
 		
 		contactInformationHorizontalLayout.addComponent(lhsFieldsVerticalLayout);
-		
-		TextField companyName = new TextField("Your Company Name");
-		companyName.setImmediate(true);
-		companyName.setWidth("350px");
-		TextField advertiserName = new TextField("Advertiser Name(If Different than Your Comapany)");
-		advertiserName.setImmediate(true);
-		advertiserName.setWidth("350px");
 		
 		AbstractOrderedLayout rhsFieldsVerticalLayout = new VerticalLayout(companyName, advertiserName);
 		rhsFieldsVerticalLayout.setSpacing(true);
@@ -226,7 +246,31 @@ public class InformationView extends CustomComponent implements View{
 		
 		contactInformationVerticalLayout.addComponent(contactInformationHorizontalLayout);
 		
-		Button continueButton = new Button("CONTINUE");		
+		Button continueButton = new Button("CONTINUE");	
+		continueButton.addClickListener(new Button.ClickListener() {
+            public void buttonClick(ClickEvent event) {
+            	try {
+            		
+            		Collection<String> fieldGroupErrors = ErrorUtils.getComponentError(fieldGroup.getFields());
+            		
+            		if(fieldGroupErrors.isEmpty()){
+            			firstName.addValidator(new BeanValidator(ContactInformation.class, "firstName"));
+            			lastName.addValidator(new BeanValidator(ContactInformation.class, "lastName"));
+            			emailAddress.addValidator(new BeanValidator(ContactInformation.class, "emailAddress"));
+            			phoneNumber.addValidator(new BeanValidator(ContactInformation.class, "phoneNumber"));
+            			companyName.addValidator(new BeanValidator(ContactInformation.class, "companyName"));
+            			advertiserName.addValidator(new BeanValidator(ContactInformation.class, "advertiserName"));
+            		}
+            		
+                    fieldGroup.commit();
+                } catch (CommitException e) {
+                    // Show all the validate errors:
+                    ErrorUtils.showComponentErrors(fieldGroup.getFields());
+
+                    return;
+                }
+            }
+        });
 		Button cancelButton = new Button("CANCEL");
 		cancelButton.addClickListener(new Button.ClickListener() {
             public void buttonClick(ClickEvent event) {

@@ -1,4 +1,4 @@
-package com.cni.addesk.util;
+package com.cni.addesk.bean;
 
 import java.io.Serializable;
 
