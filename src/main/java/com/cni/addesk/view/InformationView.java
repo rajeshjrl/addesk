@@ -38,6 +38,7 @@ public class InformationView extends CustomComponent implements View{
 	
 	public static final String NAME = Messages.getString("InformationView.informationViewName");    //$NON-NLS-1$
 	private final AbstractOrderedLayout rootVerticalLayout;
+	private View oldView;
 	
 	private MenuBar.Command menuCommand = new MenuBar.Command() {
 	    public void menuSelected(MenuItem selectedItem) {
@@ -224,7 +225,7 @@ public class InformationView extends CustomComponent implements View{
 		Button continueButton = new Button(Messages.getString("InformationView.continue"));	 //$NON-NLS-1$
 		continueButton.addClickListener(new Button.ClickListener() {
             public void buttonClick(ClickEvent event) {
-            	try {
+            	/*try {
             		
             		Collection<String> fieldGroupErrors = ErrorUtils.getComponentError(fieldGroup.getFields());
             		
@@ -243,17 +244,22 @@ public class InformationView extends CustomComponent implements View{
                     ErrorUtils.showComponentErrors(fieldGroup.getFields());
 
                     return;
-                }
+                }*/
+            	getUI().getNavigator().addView(UploadView.NAME, UploadView.class);
+                // Navigate to upload creative view
+                getUI().getNavigator().navigateTo(UploadView.NAME);
             }
         });
 		Button cancelButton = new Button(Messages.getString("InformationView.cancel")); //$NON-NLS-1$
 		cancelButton.addClickListener(new Button.ClickListener() {
             public void buttonClick(ClickEvent event) {
-            	// "Logout" the user
-	            getSession().setAttribute(Messages.getString("InformationView.sessionUser"), null);    //$NON-NLS-1$
+            	if(oldView instanceof HomeView){
+            		// "Logout" the user
+    	            getSession().setAttribute(Messages.getString("InformationView.sessionUser"), null);    //$NON-NLS-1$
 
-	            // Refresh this view, should redirect to login view
-	            getUI().getNavigator().navigateTo(NAME);
+    	            // Refresh this view, should redirect to login view
+    	            getUI().getNavigator().navigateTo(NAME);
+	            }
             }
         });
 		
@@ -264,15 +270,12 @@ public class InformationView extends CustomComponent implements View{
         
         contactInformationVerticalLayout.addComponent(buttonsHorizontalLayout);
 		
-		rootVerticalLayout.addComponent(contactInformationVerticalLayout);
-		
-		
-		
+		rootVerticalLayout.addComponent(contactInformationVerticalLayout);		
 	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
-		
+		oldView = event.getOldView();	
 	}
+	
 }

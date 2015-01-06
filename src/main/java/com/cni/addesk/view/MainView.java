@@ -6,6 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.vaadin.activelink.ActiveLink;
 import org.vaadin.activelink.ActiveLink.LinkActivatedEvent;
 import org.vaadin.activelink.ActiveLink.LinkActivatedListener;
@@ -331,6 +332,15 @@ public class MainView extends CustomComponent implements View{
 		Embedded uploadImage = new Embedded(null, new ThemeResource(Messages.getString("MainView.uploadImage")));  //$NON-NLS-1$
 		
 		ClickableLabel uploadCreativeLabel = new ClickableLabel(Messages.getString("MainView.uploadCreativeLabel"));  //$NON-NLS-1$
+		
+		uploadCreativeLabel.addLayoutClickListener(new LayoutClickListener() {            
+            @Override
+             public void layoutClick(LayoutClickEvent event) {
+                getUI().getNavigator().addView(UploadView.NAME, UploadView.class);
+                // Navigate to upload creative view
+                getUI().getNavigator().navigateTo(UploadView.NAME);
+              }
+        });  
 		
 		uploadCreativeHorizontalLayout.addComponent(uploadImage);
 		uploadCreativeHorizontalLayout.addComponent(uploadCreativeLabel);
