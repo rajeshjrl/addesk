@@ -225,7 +225,7 @@ public class InformationView extends CustomComponent implements View{
 		Button continueButton = new Button(Messages.getString("InformationView.continue"));	 //$NON-NLS-1$
 		continueButton.addClickListener(new Button.ClickListener() {
             public void buttonClick(ClickEvent event) {
-            	/*try {
+            	try {
             		
             		Collection<String> fieldGroupErrors = ErrorUtils.getComponentError(fieldGroup.getFields());
             		
@@ -244,7 +244,7 @@ public class InformationView extends CustomComponent implements View{
                     ErrorUtils.showComponentErrors(fieldGroup.getFields());
 
                     return;
-                }*/
+                }
             	getUI().getNavigator().addView(UploadView.NAME, UploadView.class);
                 // Navigate to upload creative view
                 getUI().getNavigator().navigateTo(UploadView.NAME);
