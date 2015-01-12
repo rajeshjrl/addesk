@@ -83,7 +83,7 @@ public class UploadView extends CustomComponent implements View{
 		setCompositionRoot(rootVerticalLayout);
 		CustomLayout headerTemplate = new CustomLayout(Messages.getString("UploadView.header")); //$NON-NLS-1$
 		MenuBar menubar = new MenuBar();
-		MenuItem menuItem = menubar.addItem(Messages.getString("UploadView.empty"), new ThemeResource(Messages.getString("UploadView.menuItem")), null); //$NON-NLS-1$ //$NON-NLS-2$
+		MenuItem menuItem = menubar.addItem(Messages.getString("UploadView.menuItemCaption"), new ThemeResource(Messages.getString("UploadView.menuItem")), null); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItem.addItem(Messages.getString("UploadView.homeMenuItem"), null, menuCommand); //$NON-NLS-1$
 		menuItem.addItem(Messages.getString("UploadView.reportsMenuItem"), null, menuCommand); //$NON-NLS-1$
 		menuItem.addItem(Messages.getString("UploadView.historyMenuItem"), null, menuCommand); //$NON-NLS-1$
@@ -99,7 +99,7 @@ public class UploadView extends CustomComponent implements View{
 		myaccountMenuItem.addItem(Messages.getString("UploadView.changePasswordMenuItem"), null, menuCommand); //$NON-NLS-1$
 		
 		headerTemplate.addComponent(menubar, Messages.getString("UploadView.menubar")); //$NON-NLS-1$
-		headerTemplate.addComponent(logoLabel, Messages.getString(Messages.getString("UploadView.logo")));   //$NON-NLS-1$
+		headerTemplate.addComponent(logoLabel, Messages.getString("UploadView.logo"));   //$NON-NLS-1$
 		headerTemplate.addComponent(rightMenu, Messages.getString("UploadView.rightMenu")); //$NON-NLS-1$
 		
 		rootVerticalLayout.addComponent(headerTemplate);	

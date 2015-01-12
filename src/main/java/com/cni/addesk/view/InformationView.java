@@ -179,6 +179,7 @@ public class InformationView extends CustomComponent implements View{
 		firstName.setNullRepresentation(Messages.getString("InformationView.nullRepresentation")); //$NON-NLS-1$
 		firstName.setInputPrompt(Messages.getString("InformationView.inputPromptRequired")); //$NON-NLS-1$
 		firstName.setWidth(Messages.getString("InformationView.textFieldWidth"));   //$NON-NLS-1$
+		firstName.focus();
 		final AbstractTextField lastName = (AbstractTextField)fieldGroup.buildAndBind(Messages.getString("InformationView.lastName"), "lastName"); //$NON-NLS-1$ //$NON-NLS-2$
 		lastName.setNullRepresentation(Messages.getString("InformationView.nullRepresentation")); //$NON-NLS-1$
 		lastName.setInputPrompt(Messages.getString("InformationView.inputPromptRequired")); //$NON-NLS-1$
